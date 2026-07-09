@@ -3,7 +3,10 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
 import Header from "../components/Header";
+import Footer from "../components/Footer";
 import PlayerBar from "../components/PlayerBar";
+
+import { AudioProvider } from "../context/AudioContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,13 +35,19 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full bg-black text-white">
-        <Header />
+        <AudioProvider>
 
-        <main className="pt-20 pb-24">
-          {children}
-        </main>
+          <Header />
 
-        <PlayerBar />
+          <main className="pt-20 pb-32">
+            {children}
+          </main>
+
+          <Footer />
+
+          <PlayerBar />
+
+        </AudioProvider>
       </body>
     </html>
   );
