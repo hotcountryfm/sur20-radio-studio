@@ -1,11 +1,13 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Music, Radio } from "lucide-react";
+import { STATION } from "../../lib/constants";
 
 export default function NowPlayingCard() {
-  const [artist, setArtist] = useState("SUR20 RADIO");
-  const [song, setSong] = useState("Tu compañía, tu voz");
+  const [artist, setArtist] = useState(STATION.name);
+  const [song, setSong] = useState(STATION.tagline);
 
   useEffect(() => {
     async function loadSong() {
@@ -33,35 +35,72 @@ export default function NowPlayingCard() {
   return (
     <section className="mx-auto max-w-7xl px-6 py-20">
 
-      <div className="rounded-3xl border border-yellow-500/20 bg-gradient-to-br from-neutral-900 to-black p-10 shadow-2xl">
+      <div className="overflow-hidden rounded-3xl border border-yellow-500/20 bg-gradient-to-br from-neutral-900 to-black shadow-2xl">
 
-        <div className="mb-6 flex items-center gap-3">
+        <div className="grid md:grid-cols-[140px_1fr]">
 
-          <Music className="text-yellow-400" size={28} />
+          {/* Imagen */}
 
-          <h2 className="text-3xl font-black text-yellow-400">
-            AHORA SUENA
-          </h2>
+          <div className="flex items-center justify-center bg-neutral-950 p-8">
 
-        </div>
+            <Image
+              src="/logo.png"
+              alt={STATION.name}
+              width={110}
+              height={110}
+              className="drop-shadow-[0_0_20px_rgba(234,179,8,.35)]"
+            />
 
-        <h3 className="text-4xl font-black text-white">
+          </div>
 
-          {artist}
+          {/* Información */}
 
-        </h3>
+          <div className="p-10">
 
-        <p className="mt-3 text-2xl text-gray-300">
+            <div className="flex items-center gap-3">
 
-          {song}
+              <Music
+                size={26}
+                className="text-yellow-400"
+              />
 
-        </p>
+              <span className="text-lg font-black uppercase tracking-[3px] text-yellow-400">
+                Ahora Suena
+              </span>
 
-        <div className="mt-8 inline-flex items-center gap-3 rounded-full bg-red-600 px-5 py-3 font-bold">
+            </div>
 
-          <Radio size={18} />
+            <h2 className="mt-8 text-4xl font-black text-white">
 
-          EN EMISIÓN EN DIRECTO
+              {artist}
+
+            </h2>
+
+            <p className="mt-3 text-2xl text-gray-300">
+
+              {song}
+
+            </p>
+
+            <div className="mt-8 flex flex-wrap items-center gap-4">
+
+              <div className="flex items-center gap-2 rounded-full bg-red-600 px-5 py-3 font-bold">
+
+                <Radio size={18} />
+
+                EN DIRECTO
+
+              </div>
+
+              <span className="text-gray-400">
+
+                Escúchanos las 24 horas del día.
+
+              </span>
+
+            </div>
+
+          </div>
 
         </div>
 
