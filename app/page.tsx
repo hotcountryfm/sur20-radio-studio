@@ -4,11 +4,16 @@ import Stats from "../components/Stats";
 import NowPlaying from "../components/NowPlaying";
 import FeaturedPrograms from "../components/FeaturedPrograms";
 import FadeIn from "../components/FadeIn";
+import NowPlayingCard from "../components/home/NowPlayingCard";
 
 export default function Home() {
   return (
     <>
       <Hero />
+
+      <FadeIn>
+        <NowPlayingCard />
+      </FadeIn>
 
       <FadeIn>
         <Features />
