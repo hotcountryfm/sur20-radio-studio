@@ -10,7 +10,7 @@ import {
 
 type AudioContextType = {
   playing: boolean;
-  play: () => void;
+  play: () => Promise<void>;
   pause: () => void;
   toggle: () => void;
 };
@@ -23,22 +23,23 @@ export function AudioProvider({
   children: ReactNode;
 }) {
   const audioRef = useRef<HTMLAudioElement | null>(null);
-
   const [playing, setPlaying] = useState(false);
 
-  const streamUrl = "http://hoth.alonhosting.com:5430/stream";
+  // ✅ Stream HTTPS
+  const streamUrl = "https://hoth.alonhosting.com/radiosur";
 
   const play = async () => {
     if (!audioRef.current) {
       audioRef.current = new Audio(streamUrl);
       audioRef.current.volume = 1;
+      audioRef.current.preload = "none";
     }
 
     try {
       await audioRef.current.play();
       setPlaying(true);
     } catch (err) {
-      console.error(err);
+      console.error("Error al reproducir:", err);
     }
   };
 
