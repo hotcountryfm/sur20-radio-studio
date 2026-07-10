@@ -1,18 +1,13 @@
 import Hero from "../components/Hero";
+import Features from "../components/Features";
 import NowPlaying from "../components/NowPlaying";
-import Programs from "../components/Programs";
-import Stats from "../components/Stats";
 
 export default function Home() {
   return (
     <>
       <Hero />
-
+      <Features />
       <NowPlaying />
-
-      <Programs />
-
-      <Stats />
     </>
   );
 }
