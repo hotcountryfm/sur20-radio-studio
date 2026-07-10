@@ -3,7 +3,11 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { Radio } from "lucide-react";
+
 import { useAudio } from "../context/AudioContext";
+import { NAVIGATION } from "../lib/navigation";
+import { STATION } from "../lib/constants";
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -32,27 +36,27 @@ export default function Header() {
 
         {/* Logo */}
 
-        <Link href="/" className="flex items-center gap-3">
+        <Link href="/" className="flex items-center gap-4">
 
           <Image
             src="/logo.png"
-            alt="SUR20 Radio"
-            width={55}
-            height={55}
+            alt={STATION.name}
+            width={58}
+            height={58}
             priority
           />
 
           <div>
 
             <h1 className="text-xl font-black tracking-wide text-yellow-400">
-              SUR20 RADIO
+              {STATION.name}
             </h1>
 
-            <div className="flex items-center gap-2 text-xs text-red-400">
+            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-red-400">
 
-              <span className="h-2 w-2 rounded-full bg-red-500 animate-pulse"></span>
+              <Radio size={14} />
 
-              EN DIRECTO
+              {playing ? "En Directo" : "Preparado"}
 
             </div>
 
@@ -64,33 +68,15 @@ export default function Header() {
 
         <nav className="hidden md:flex items-center gap-8">
 
-          <Link
-            href="/"
-            className="transition hover:text-yellow-400"
-          >
-            Inicio
-          </Link>
-
-          <Link
-            href="/programacion"
-            className="transition hover:text-yellow-400"
-          >
-            Programación
-          </Link>
-
-          <Link
-            href="#"
-            className="transition hover:text-yellow-400"
-          >
-            Noticias
-          </Link>
-
-          <Link
-            href="#"
-            className="transition hover:text-yellow-400"
-          >
-            Contacto
-          </Link>
+          {NAVIGATION.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className="transition hover:text-yellow-400"
+            >
+              {item.label}
+            </Link>
+          ))}
 
         </nav>
 

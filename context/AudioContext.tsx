@@ -8,11 +8,15 @@ import {
   ReactNode,
 } from "react";
 
+import { STATION } from "../lib/constants";
+
 type AudioContextType = {
   playing: boolean;
+  volume: number;
   play: () => Promise<void>;
   pause: () => void;
   toggle: () => void;
+  setVolume: (value: number) => void;
 };
 
 const AudioContext = createContext<AudioContextType | null>(null);
@@ -23,23 +27,22 @@ export function AudioProvider({
   children: ReactNode;
 }) {
   const audioRef = useRef<HTMLAudioElement | null>(null);
-  const [playing, setPlaying] = useState(false);
 
-  // ✅ Stream HTTPS
-  const streamUrl = "https://hoth.alonhosting.com/radiosur";
+  const [playing, setPlaying] = useState(false);
+  const [volume, setVolumeState] = useState(100);
 
   const play = async () => {
     if (!audioRef.current) {
-      audioRef.current = new Audio(streamUrl);
-      audioRef.current.volume = 1;
+      audioRef.current = new Audio(STATION.streamUrl);
       audioRef.current.preload = "none";
+      audioRef.current.volume = volume / 100;
     }
 
     try {
       await audioRef.current.play();
       setPlaying(true);
     } catch (err) {
-      console.error("Error al reproducir:", err);
+      console.error(err);
     }
   };
 
@@ -51,10 +54,14 @@ export function AudioProvider({
   };
 
   const toggle = () => {
-    if (playing) {
-      pause();
-    } else {
-      play();
+    playing ? pause() : play();
+  };
+
+  const setVolume = (value: number) => {
+    setVolumeState(value);
+
+    if (audioRef.current) {
+      audioRef.current.volume = value / 100;
     }
   };
 
@@ -62,9 +69,11 @@ export function AudioProvider({
     <AudioContext.Provider
       value={{
         playing,
+        volume,
         play,
         pause,
         toggle,
+        setVolume,
       }}
     >
       {children}
