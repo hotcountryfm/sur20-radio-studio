@@ -23,13 +23,11 @@ export default async function AdminProgramasPage() {
 
   return (
     <main className="min-h-screen bg-black text-white">
-
       <div className="mx-auto max-w-7xl px-8 py-20">
 
         <div className="mb-10 flex items-center justify-between">
 
           <div>
-
             <h1 className="text-5xl font-black text-yellow-400">
               Programación
             </h1>
@@ -37,7 +35,6 @@ export default async function AdminProgramasPage() {
             <p className="mt-3 text-gray-400">
               Gestión de programas de SUR20 Radio
             </p>
-
           </div>
 
           <Link
@@ -54,31 +51,13 @@ export default async function AdminProgramasPage() {
           <table className="w-full">
 
             <thead className="bg-neutral-900">
-
               <tr>
-
-                <th className="p-4 text-left">
-                  Programa
-                </th>
-
-                <th className="p-4 text-left">
-                  Día
-                </th>
-
-                <th className="p-4 text-left">
-                  Horario
-                </th>
-
-                <th className="p-4 text-left">
-                  Presentador
-                </th>
-
-                <th className="p-4 text-center">
-                  Acciones
-                </th>
-
+                <th className="p-4 text-left">Programa</th>
+                <th className="p-4 text-left">Día</th>
+                <th className="p-4 text-left">Horario</th>
+                <th className="p-4 text-left">Presentador</th>
+                <th className="p-4 text-center">Acciones</th>
               </tr>
-
             </thead>
 
             <tbody>
@@ -110,12 +89,15 @@ export default async function AdminProgramasPage() {
 
                     <div className="flex justify-center gap-3">
 
-                      <button className="rounded-lg bg-blue-600 px-4 py-2 hover:bg-blue-700">
+                      <Link
+                        href={`/admin/programas/editar/${program.id}`}
+                        className="rounded-lg bg-blue-600 px-4 py-2 hover:bg-blue-700"
+                      >
                         ✏ Editar
-                      </button>
+                      </Link>
 
                       <DeleteProgramButton
-                        id={String(program.id)}
+                        id={program.id}
                       />
 
                     </div>
