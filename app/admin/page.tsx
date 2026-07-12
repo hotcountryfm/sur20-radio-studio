@@ -1,75 +1,107 @@
 import Link from "next/link";
+import { supabase } from "@/lib/supabase";
+import LogoutButton from "@/components/admin/LogoutButton";
 
-export default function AdminPage() {
+export default async function AdminPage() {
+  const { count: totalProgramas } = await supabase
+    .from("programs")
+    .select("*", { count: "exact", head: true });
+
+  const { count: totalNoticias } = await supabase
+    .from("news")
+    .select("*", { count: "exact", head: true });
+
   return (
     <main className="min-h-screen bg-black text-white">
+      <div className="mx-auto max-w-7xl px-8 py-20">
 
-      <div className="mx-auto max-w-6xl px-8 py-20">
+        <div className="flex items-center justify-between">
 
-        <h1 className="text-5xl font-black text-yellow-400">
-          SUR20 RADIO STUDIO
-        </h1>
+          <div>
+            <h1 className="text-5xl font-black text-yellow-400">
+              SUR20 RADIO STUDIO
+            </h1>
 
-        <p className="mt-4 text-gray-400">
-          Panel de administración
-        </p>
-
-        <div className="mt-14 grid gap-8 md:grid-cols-2 xl:grid-cols-3">
-
-          <Link
-            href="/admin/programas"
-            className="rounded-3xl border border-yellow-500/20 bg-neutral-900 p-8 transition hover:border-yellow-400 hover:shadow-[0_0_30px_rgba(234,179,8,.25)]"
-          >
-            <div className="text-5xl">
-              🎵
-            </div>
-
-            <h2 className="mt-6 text-2xl font-bold text-yellow-400">
-              Programación
-            </h2>
-
-            <p className="mt-4 text-gray-400">
-              Gestionar todos los programas de la emisora.
+            <p className="mt-3 text-gray-400">
+              Panel de administración
             </p>
-
-          </Link>
-
-          <div className="rounded-3xl border border-neutral-700 bg-neutral-900 p-8 opacity-60">
-
-            <div className="text-5xl">
-              📰
-            </div>
-
-            <h2 className="mt-6 text-2xl font-bold">
-              Noticias
-            </h2>
-
-            <p className="mt-4 text-gray-500">
-              Próximamente
-            </p>
-
           </div>
 
-          <div className="rounded-3xl border border-neutral-700 bg-neutral-900 p-8 opacity-60">
+          <LogoutButton />
 
-            <div className="text-5xl">
-              🎙
-            </div>
+        </div>
 
-            <h2 className="mt-6 text-2xl font-bold">
-              Locutores
-            </h2>
+        <div className="mt-12 grid gap-6 md:grid-cols-4">
 
-            <p className="mt-4 text-gray-500">
-              Próximamente
+          <div className="rounded-3xl bg-neutral-900 p-8">
+            <p className="text-gray-400">
+              🎵 Programas
             </p>
+
+            <h2 className="mt-4 text-5xl font-black text-yellow-400">
+              {totalProgramas ?? 0}
+            </h2>
+          </div>
+
+          <div className="rounded-3xl bg-neutral-900 p-8">
+            <p className="text-gray-400">
+              📰 Noticias
+            </p>
+
+            <h2 className="mt-4 text-5xl font-black text-yellow-400">
+              {totalNoticias ?? 0}
+            </h2>
+          </div>
+
+          <div className="rounded-3xl bg-neutral-900 p-8">
+            <p className="text-gray-400">
+              🎙 Locutores
+            </p>
+
+            <h2 className="mt-4 text-5xl font-black text-yellow-400">
+              0
+            </h2>
+          </div>
+
+          <div className="rounded-3xl bg-neutral-900 p-8">
+            <p className="text-gray-400">
+              🎧 Podcasts
+            </p>
+
+            <h2 className="mt-4 text-5xl font-black text-yellow-400">
+              0
+            </h2>
+          </div>
+
+        </div>
+
+        <div className="mt-12 rounded-3xl bg-neutral-900 p-8">
+
+          <h2 className="text-3xl font-bold text-yellow-400">
+            Accesos rápidos
+          </h2>
+
+          <div className="mt-8 flex flex-wrap gap-4">
+
+            <Link
+              href="/admin/programas"
+              className="rounded-xl bg-yellow-400 px-6 py-4 font-bold text-black transition hover:bg-yellow-300"
+            >
+              🎵 Gestionar Programas
+            </Link>
+
+            <Link
+              href="/admin/noticias"
+              className="rounded-xl bg-blue-600 px-6 py-4 font-bold text-white transition hover:bg-blue-700"
+            >
+              📰 Gestionar Noticias
+            </Link>
 
           </div>
 
         </div>
 
       </div>
-
     </main>
   );
 }
