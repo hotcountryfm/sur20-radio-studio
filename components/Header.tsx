@@ -12,6 +12,9 @@ import { STATION } from "../lib/constants";
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
 
+  const [artist, setArtist] = useState(STATION.name);
+  const [song, setSong] = useState(STATION.tagline);
+
   const { playing, toggle } = useAudio();
 
   useEffect(() => {
@@ -22,6 +25,29 @@ export default function Header() {
     window.addEventListener("scroll", handleScroll);
 
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    async function loadSong() {
+      try {
+        const res = await fetch("/api/now-playing", {
+          cache: "no-store",
+        });
+
+        const data = await res.json();
+
+        if (data.artist) setArtist(data.artist);
+        if (data.song) setSong(data.song);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    loadSong();
+
+    const interval = setInterval(loadSong, 10000);
+
+    return () => clearInterval(interval);
   }, []);
 
   return (
@@ -53,11 +79,14 @@ export default function Header() {
             </h1>
 
             <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-red-400">
-
               <Radio size={14} />
-
               {playing ? "En Directo" : "Preparado"}
+            </div>
 
+            <div className="hidden lg:block text-xs text-gray-400 truncate max-w-xs mt-1">
+              <span className="text-white font-semibold">{artist}</span>
+              {" • "}
+              {song}
             </div>
 
           </div>

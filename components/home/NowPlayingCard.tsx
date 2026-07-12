@@ -1,9 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Music, Radio } from "lucide-react";
+
 import { STATION } from "../../lib/constants";
+import CoverArt from "../CoverArt";
 
 export default function NowPlayingCard() {
   const [artist, setArtist] = useState(STATION.name);
@@ -37,25 +38,23 @@ export default function NowPlayingCard() {
 
       <div className="overflow-hidden rounded-3xl border border-yellow-500/20 bg-gradient-to-br from-neutral-900 to-black shadow-2xl">
 
-        <div className="grid md:grid-cols-[140px_1fr]">
+        <div className="grid gap-8 md:grid-cols-[180px_1fr]">
 
-          {/* Imagen */}
+          {/* Portada */}
 
           <div className="flex items-center justify-center bg-neutral-950 p-8">
 
-            <Image
-              src="/logo.png"
-              alt={STATION.name}
-              width={110}
-              height={110}
-              className="drop-shadow-[0_0_20px_rgba(234,179,8,.35)]"
+            <CoverArt
+              artist={artist}
+              song={song}
+              size={140}
             />
 
           </div>
 
           {/* Información */}
 
-          <div className="p-10">
+          <div className="flex flex-col justify-center p-10">
 
             <div className="flex items-center gap-3">
 
@@ -65,7 +64,7 @@ export default function NowPlayingCard() {
               />
 
               <span className="text-lg font-black uppercase tracking-[3px] text-yellow-400">
-                Ahora Suena
+                AHORA SUENA
               </span>
 
             </div>
@@ -94,7 +93,7 @@ export default function NowPlayingCard() {
 
               <span className="text-gray-400">
 
-                Escúchanos las 24 horas del día.
+                Música las 24 horas del día · Calidad 320 kbps
 
               </span>
 
