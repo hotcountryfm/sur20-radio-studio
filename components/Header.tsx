@@ -6,16 +6,15 @@ import { useEffect, useState } from "react";
 import { Radio } from "lucide-react";
 
 import { useAudio } from "../context/AudioContext";
+import { useNowPlaying } from "../context/NowPlayingContext";
 import { NAVIGATION } from "../lib/navigation";
 import { STATION } from "../lib/constants";
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
 
-  const [artist, setArtist] = useState(STATION.name);
-  const [song, setSong] = useState(STATION.tagline);
-
   const { playing, toggle } = useAudio();
+  const { artist, song } = useNowPlaying();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,29 +24,6 @@ export default function Header() {
     window.addEventListener("scroll", handleScroll);
 
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  useEffect(() => {
-    async function loadSong() {
-      try {
-        const res = await fetch("/api/now-playing", {
-          cache: "no-store",
-        });
-
-        const data = await res.json();
-
-        if (data.artist) setArtist(data.artist);
-        if (data.song) setSong(data.song);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-
-    loadSong();
-
-    const interval = setInterval(loadSong, 10000);
-
-    return () => clearInterval(interval);
   }, []);
 
   return (
@@ -79,21 +55,32 @@ export default function Header() {
             </h1>
 
             <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-red-400">
+
+              <span className="h-2 w-2 rounded-full bg-red-500 animate-pulse"></span>
+
               <Radio size={14} />
-              {playing ? "En Directo" : "Preparado"}
+
+              {playing ? "EN DIRECTO" : "PREPARADO"}
+
             </div>
 
-            <div className="hidden lg:block text-xs text-gray-400 truncate max-w-xs mt-1">
-              <span className="text-white font-semibold">{artist}</span>
+            <div className="hidden lg:block mt-1 max-w-xs truncate text-xs text-gray-400">
+
+              <span className="font-semibold text-white">
+                {artist}
+              </span>
+
               {" • "}
+
               {song}
+
             </div>
 
           </div>
 
         </Link>
 
-        {/* Menú */}
+        {/* Navegación */}
 
         <nav className="hidden md:flex items-center gap-8">
 

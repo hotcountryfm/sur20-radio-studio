@@ -1,37 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { Music, Radio } from "lucide-react";
 
-import { STATION } from "../../lib/constants";
 import CoverArt from "../CoverArt";
+import { useNowPlaying } from "../../context/NowPlayingContext";
 
 export default function NowPlayingCard() {
-  const [artist, setArtist] = useState(STATION.name);
-  const [song, setSong] = useState(STATION.tagline);
-
-  useEffect(() => {
-    async function loadSong() {
-      try {
-        const res = await fetch("/api/now-playing", {
-          cache: "no-store",
-        });
-
-        const data = await res.json();
-
-        if (data.artist) setArtist(data.artist);
-        if (data.song) setSong(data.song);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-
-    loadSong();
-
-    const interval = setInterval(loadSong, 10000);
-
-    return () => clearInterval(interval);
-  }, []);
+  const { artist, song } = useNowPlaying();
 
   return (
     <section className="mx-auto max-w-7xl px-6 py-20">
@@ -70,15 +45,11 @@ export default function NowPlayingCard() {
             </div>
 
             <h2 className="mt-8 text-4xl font-black text-white">
-
               {artist}
-
             </h2>
 
             <p className="mt-3 text-2xl text-gray-300">
-
               {song}
-
             </p>
 
             <div className="mt-8 flex flex-wrap items-center gap-4">
@@ -92,9 +63,7 @@ export default function NowPlayingCard() {
               </div>
 
               <span className="text-gray-400">
-
                 Música las 24 horas del día · Calidad 320 kbps
-
               </span>
 
             </div>

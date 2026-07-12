@@ -7,6 +7,7 @@ import Footer from "../components/Footer";
 import PlayerBar from "../components/PlayerBar";
 
 import { AudioProvider } from "../context/AudioContext";
+import { NowPlayingProvider } from "../context/NowPlayingContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -37,15 +38,19 @@ export default function RootLayout({
       <body className="min-h-full bg-black text-white">
         <AudioProvider>
 
-          <Header />
+          <NowPlayingProvider>
 
-          <main className="pt-20 pb-32">
-            {children}
-          </main>
+            <Header />
 
-          <Footer />
+            <main className="pt-20 pb-32">
+              {children}
+            </main>
 
-          <PlayerBar />
+            <Footer />
+
+            <PlayerBar />
+
+          </NowPlayingProvider>
 
         </AudioProvider>
       </body>
