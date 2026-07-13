@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { supabase } from "@/lib/supabase";
+import DeleteNewsButton from "@/components/admin/DeleteNewsButton";
 
 export default async function AdminNoticiasPage() {
   const { data: news, error } = await supabase
@@ -54,23 +55,10 @@ export default async function AdminNoticiasPage() {
             <thead className="bg-neutral-900">
 
               <tr>
-
-                <th className="p-4 text-left">
-                  Título
-                </th>
-
-                <th className="p-4 text-left">
-                  Estado
-                </th>
-
-                <th className="p-4 text-left">
-                  Fecha
-                </th>
-
-                <th className="p-4 text-center">
-                  Acciones
-                </th>
-
+                <th className="p-4 text-left">Título</th>
+                <th className="p-4 text-left">Estado</th>
+                <th className="p-4 text-left">Fecha</th>
+                <th className="p-4 text-center">Acciones</th>
               </tr>
 
             </thead>
@@ -89,18 +77,29 @@ export default async function AdminNoticiasPage() {
                   </td>
 
                   <td className="p-4">
-                    {item.status}
+                    {item.status === "published"
+                      ? "🟢 Publicada"
+                      : "🟡 Borrador"}
                   </td>
 
                   <td className="p-4">
                     {new Date(item.created_at).toLocaleDateString("es-ES")}
                   </td>
 
-                  <td className="p-4 text-center">
+                  <td className="p-4">
 
-                    <button className="rounded-lg bg-blue-600 px-4 py-2 hover:bg-blue-700">
-                      ✏ Editar
-                    </button>
+                    <div className="flex justify-center gap-3">
+
+                      <Link
+                        href={`/admin/noticias/editar/${item.id}`}
+                        className="rounded-lg bg-blue-600 px-4 py-2 hover:bg-blue-700"
+                      >
+                        ✏ Editar
+                      </Link>
+
+                      <DeleteNewsButton id={item.id} />
+
+                    </div>
 
                   </td>
 
@@ -111,6 +110,17 @@ export default async function AdminNoticiasPage() {
             </tbody>
 
           </table>
+
+        </div>
+
+        <div className="mt-10">
+
+          <Link
+            href="/admin"
+            className="text-yellow-400 hover:underline"
+          >
+            ← Volver al panel
+          </Link>
 
         </div>
 
