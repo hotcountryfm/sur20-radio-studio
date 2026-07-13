@@ -2,12 +2,14 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import ImageUploader from "@/components/ImageUploader";
 
 type News = {
   id: string;
   title: string;
   summary: string | null;
   content: string | null;
+  image_url: string | null;
   status: string;
 };
 
@@ -21,6 +23,7 @@ export default function EditNewsForm({
   const [title, setTitle] = useState(news.title);
   const [summary, setSummary] = useState(news.summary ?? "");
   const [content, setContent] = useState(news.content ?? "");
+  const [imageUrl, setImageUrl] = useState(news.image_url ?? "");
   const [status, setStatus] = useState(news.status);
   const [saving, setSaving] = useState(false);
 
@@ -38,6 +41,7 @@ export default function EditNewsForm({
         title,
         summary,
         content,
+        image_url: imageUrl,
         status,
       }),
     });
@@ -57,6 +61,11 @@ export default function EditNewsForm({
 
   return (
     <form onSubmit={guardar} className="mt-12 space-y-8">
+
+      <ImageUploader
+        value={imageUrl}
+        onUpload={setImageUrl}
+      />
 
       <div>
         <label className="mb-2 block font-semibold">

@@ -3,6 +3,13 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
+      // Supabase Storage
+      {
+        protocol: "https",
+        hostname: "fckaguigthhxgwudeuvo.supabase.co",
+      },
+
+      // Apple Music
       {
         protocol: "https",
         hostname: "is1-ssl.mzstatic.com",

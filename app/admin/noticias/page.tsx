@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { supabase } from "@/lib/supabase";
 import DeleteNewsButton from "@/components/admin/DeleteNewsButton";
 
@@ -22,13 +23,11 @@ export default async function AdminNoticiasPage() {
 
   return (
     <main className="min-h-screen bg-black text-white">
-
       <div className="mx-auto max-w-7xl px-8 py-20">
 
         <div className="mb-10 flex items-center justify-between">
 
           <div>
-
             <h1 className="text-5xl font-black text-yellow-400">
               Noticias
             </h1>
@@ -53,14 +52,13 @@ export default async function AdminNoticiasPage() {
           <table className="w-full">
 
             <thead className="bg-neutral-900">
-
               <tr>
+                <th className="p-4 text-left">Imagen</th>
                 <th className="p-4 text-left">Título</th>
                 <th className="p-4 text-left">Estado</th>
                 <th className="p-4 text-left">Fecha</th>
                 <th className="p-4 text-center">Acciones</th>
               </tr>
-
             </thead>
 
             <tbody>
@@ -71,6 +69,28 @@ export default async function AdminNoticiasPage() {
                   key={item.id}
                   className="border-t border-neutral-800 hover:bg-neutral-900"
                 >
+
+                  <td className="p-4">
+
+                    {item.image_url ? (
+
+                      <Image
+                        src={item.image_url}
+                        alt={item.title}
+                        width={90}
+                        height={60}
+                        className="rounded-lg object-cover"
+                      />
+
+                    ) : (
+
+                      <div className="flex h-[60px] w-[90px] items-center justify-center rounded-lg bg-neutral-800 text-xs text-gray-500">
+                        Sin imagen
+                      </div>
+
+                    )}
+
+                  </td>
 
                   <td className="p-4 font-bold text-yellow-400">
                     {item.title}
@@ -94,7 +114,7 @@ export default async function AdminNoticiasPage() {
                         href={`/admin/noticias/editar/${item.id}`}
                         className="rounded-lg bg-blue-600 px-4 py-2 hover:bg-blue-700"
                       >
-                        ✏ Editar
+                        ✏️ Editar
                       </Link>
 
                       <DeleteNewsButton id={item.id} />
@@ -114,18 +134,15 @@ export default async function AdminNoticiasPage() {
         </div>
 
         <div className="mt-10">
-
           <Link
             href="/admin"
             className="text-yellow-400 hover:underline"
           >
             ← Volver al panel
           </Link>
-
         </div>
 
       </div>
-
     </main>
   );
 }
