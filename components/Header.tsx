@@ -10,6 +10,8 @@ import { useNowPlaying } from "../context/NowPlayingContext";
 import { NAVIGATION } from "../lib/navigation";
 import { STATION } from "../lib/constants";
 
+import MobileMenu from "./MobileMenu";
+
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
 
@@ -56,7 +58,7 @@ export default function Header() {
 
             <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-red-400">
 
-              <span className="h-2 w-2 rounded-full bg-red-500 animate-pulse"></span>
+              <span className="h-2 w-2 animate-pulse rounded-full bg-red-500"></span>
 
               <Radio size={14} />
 
@@ -64,7 +66,7 @@ export default function Header() {
 
             </div>
 
-            <div className="hidden lg:block mt-1 max-w-xs truncate text-xs text-gray-400">
+            <div className="mt-1 hidden max-w-xs truncate text-xs text-gray-400 lg:block">
 
               <span className="font-semibold text-white">
                 {artist}
@@ -80,11 +82,12 @@ export default function Header() {
 
         </Link>
 
-        {/* Navegación */}
+        {/* Menú escritorio */}
 
-        <nav className="hidden md:flex items-center gap-8">
+        <nav className="hidden items-center gap-8 md:flex">
 
           {NAVIGATION.map((item) => (
+
             <Link
               key={item.href}
               href={item.href}
@@ -92,24 +95,37 @@ export default function Header() {
             >
               {item.label}
             </Link>
+
           ))}
 
         </nav>
 
-        {/* Botón */}
+        {/* Botón escritorio */}
 
-        <button
-          onClick={toggle}
-          className={`rounded-full px-6 py-3 font-bold transition-all duration-300 ${
-            playing
-              ? "bg-green-600 hover:bg-green-700"
-              : "bg-red-600 hover:bg-red-700"
-          }`}
-        >
-          {playing ? "⏸ Pausar" : "▶ Escuchar"}
-        </button>
+        <div className="hidden md:block">
+
+          <button
+            onClick={toggle}
+            className={`rounded-full px-6 py-3 font-bold transition-all duration-300 ${
+              playing
+                ? "bg-green-600 hover:bg-green-700"
+                : "bg-red-600 hover:bg-red-700"
+            }`}
+          >
+            {playing ? "⏸ Pausar" : "▶ Escuchar"}
+          </button>
+
+        </div>
+
+        {/* Menú móvil */}
+
+        <MobileMenu
+          playing={playing}
+          toggle={toggle}
+        />
 
       </div>
+
     </header>
   );
 }
