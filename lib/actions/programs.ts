@@ -2,8 +2,9 @@
 
 import { supabase } from "@/lib/supabase";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
-export async function createProgram(formData: FormData) {
+export async function createProgram(formData: FormData): Promise<void> {
   const title = formData.get("title")?.toString() ?? "";
   const day = formData.get("day")?.toString() ?? "";
   const presenter = formData.get("presenter")?.toString() ?? "";
@@ -11,7 +12,7 @@ export async function createProgram(formData: FormData) {
   const end_time = formData.get("end_time")?.toString() ?? "";
   const description = formData.get("description")?.toString() ?? "";
 
-  const { data, error } = await supabase
+  const { error } = await supabase
     .from("programs")
     .insert([
       {
@@ -22,21 +23,14 @@ export async function createProgram(formData: FormData) {
         end_time,
         description,
       },
-    ])
-    .select();
+    ]);
 
   if (error) {
-    return {
-      success: false,
-      error,
-    };
+    throw new Error(error.message);
   }
 
   revalidatePath("/programacion");
   revalidatePath("/admin/programas");
 
-  return {
-    success: true,
-    data,
-  };
+  redirect("/admin/programas");
 }
