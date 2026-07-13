@@ -10,6 +10,7 @@ export async function POST(request: Request) {
       title: body.title,
       summary: body.summary,
       content: body.content,
+      image_url: body.image_url,
       status: body.status,
     })
     .select();
@@ -20,7 +21,9 @@ export async function POST(request: Request) {
         success: false,
         error: error.message,
       },
-      { status: 500 }
+      {
+        status: 500,
+      }
     );
   }
 

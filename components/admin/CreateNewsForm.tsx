@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import ImageUploader from "@/components/ImageUploader";
 
 export default function CreateNewsForm() {
   const router = useRouter();
@@ -10,6 +11,7 @@ export default function CreateNewsForm() {
   const [summary, setSummary] = useState("");
   const [content, setContent] = useState("");
   const [status, setStatus] = useState("draft");
+  const [imageUrl, setImageUrl] = useState("");
   const [saving, setSaving] = useState(false);
 
   async function guardar(e: React.FormEvent) {
@@ -27,6 +29,7 @@ export default function CreateNewsForm() {
         summary,
         content,
         status,
+        image_url: imageUrl,
       }),
     });
 
@@ -45,6 +48,11 @@ export default function CreateNewsForm() {
 
   return (
     <form onSubmit={guardar} className="mt-12 space-y-8">
+
+      <ImageUploader
+        value={imageUrl}
+        onUpload={setImageUrl}
+      />
 
       <div>
         <label className="mb-2 block font-semibold">
