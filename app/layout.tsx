@@ -1,3 +1,4 @@
+import InstallPrompt from "../components/InstallPrompt";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
@@ -57,6 +58,9 @@ export const metadata: Metadata = {
   publisher: "SUR20 Radio",
 
   applicationName: "SUR20 Radio",
+  manifest: "/manifest.json",
+
+themeColor: "#FFD400",
 
   category: "music",
 
@@ -105,10 +109,10 @@ export const metadata: Metadata = {
   },
 
   icons: {
-    icon: "/favicon.ico",
-    shortcut: "/favicon.ico",
-    apple: "/apple-touch-icon.png",
-  },
+  icon: "/icons/icon-192.png",
+  shortcut: "/icons/icon-192.png",
+  apple: "/icons/apple-touch-icon.png",
+},
 };
 
 export default function RootLayout({
@@ -124,9 +128,11 @@ export default function RootLayout({
       <body className="min-h-full bg-black text-white">
         <AudioProvider>
           <NowPlayingProvider>
-            <Header />
+<Header />
 
-            <main className="pb-32 pt-20">
+<InstallPrompt />
+
+<main className="pb-32 pt-20">
               {children}
             </main>
 
