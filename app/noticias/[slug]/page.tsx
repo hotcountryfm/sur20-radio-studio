@@ -34,13 +34,18 @@ export default async function NoticiaPage({ params }: Props) {
     );
   }
 
+  const { data: related } = await supabase
+    .from("news")
+    .select("id,title,slug,created_at")
+    .eq("status", "published")
+    .neq("id", news.id)
+    .order("created_at", { ascending: false })
+    .limit(3);
+
   return (
     <main className="min-h-screen bg-black text-white">
-
       <article className="mx-auto max-w-5xl px-8 py-20">
-
         {news.image_url && (
-
           <Image
             src={news.image_url}
             alt={news.title}
@@ -49,7 +54,6 @@ export default async function NoticiaPage({ params }: Props) {
             className="mb-10 rounded-3xl object-cover"
             priority
           />
-
         )}
 
         <p className="text-gray-400">
@@ -77,8 +81,36 @@ export default async function NoticiaPage({ params }: Props) {
           ← Volver a Noticias
         </Link>
 
-      </article>
+        {related && related.length > 0 && (
+          <section className="mt-20 border-t border-zinc-800 pt-10">
+            <h2 className="mb-8 text-3xl font-bold text-yellow-400">
+              También te puede interesar
+            </h2>
 
+            <div className="grid gap-6 md:grid-cols-3">
+              {related.map((item) => (
+                <Link
+                  key={item.id}
+                  href={`/noticias/${item.slug}`}
+                  className="rounded-2xl border border-zinc-800 bg-zinc-900 p-6 transition hover:border-yellow-400 hover:bg-zinc-800"
+                >
+                  <p className="mb-3 text-sm text-gray-400">
+                    {new Date(item.created_at).toLocaleDateString("es-ES")}
+                  </p>
+
+                  <h3 className="font-bold text-white">
+                    {item.title}
+                  </h3>
+
+                  <span className="mt-5 inline-block text-sm font-semibold text-yellow-400">
+                    Leer noticia →
+                  </span>
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
+      </article>
     </main>
   );
 }

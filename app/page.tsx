@@ -5,6 +5,7 @@ import NowPlaying from "../components/NowPlaying";
 import FeaturedPrograms from "../components/FeaturedPrograms";
 import FadeIn from "../components/FadeIn";
 import NowPlayingCard from "../components/home/NowPlayingCard";
+import LatestNews from "../components/home/LatestNews";
 
 export default function Home() {
   return (
@@ -13,6 +14,10 @@ export default function Home() {
 
       <FadeIn>
         <NowPlayingCard />
+      </FadeIn>
+
+      <FadeIn>
+        <LatestNews />
       </FadeIn>
 
       <FadeIn>

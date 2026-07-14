@@ -19,10 +19,96 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const siteUrl = "https://sur20radio.com";
+
 export const metadata: Metadata = {
-  title: "SUR20 Radio",
+  metadataBase: new URL(siteUrl),
+
+  title: {
+    default: "SUR20 Radio | La mejor música de los 80, 90 y 2000",
+    template: "%s | SUR20 Radio",
+  },
+
   description:
-    "Tu compañía, tu voz. La mejor música de los 80, 90 y 2000 durante las 24 horas.",
+    "Escucha SUR20 Radio en directo las 24 horas. La mejor selección de música de los años 80, 90 y 2000, programas especiales, noticias musicales y mucho más.",
+
+  keywords: [
+    "SUR20 Radio",
+    "radio online",
+    "emisora online",
+    "música 80",
+    "música 90",
+    "música 2000",
+    "radio española",
+    "pop",
+    "rock",
+    "dance",
+    "TuneIn",
+  ],
+
+  authors: [
+    {
+      name: "SUR20 Radio",
+    },
+  ],
+
+  creator: "SUR20 Radio",
+
+  publisher: "SUR20 Radio",
+
+  applicationName: "SUR20 Radio",
+
+  category: "music",
+
+  alternates: {
+    canonical: "/",
+  },
+
+  openGraph: {
+    type: "website",
+    locale: "es_ES",
+    url: siteUrl,
+    siteName: "SUR20 Radio",
+    title: "SUR20 Radio",
+    description:
+      "La mejor música de los 80, 90 y 2000 durante las 24 horas.",
+
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "SUR20 Radio",
+      },
+    ],
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "SUR20 Radio",
+    description:
+      "La mejor música de los 80, 90 y 2000 durante las 24 horas.",
+    images: ["/og-image.jpg"],
+  },
+
+  robots: {
+    index: true,
+    follow: true,
+
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-video-preview": -1,
+      "max-snippet": -1,
+    },
+  },
+
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
+  },
 };
 
 export default function RootLayout({
@@ -37,9 +123,7 @@ export default function RootLayout({
     >
       <body className="min-h-full bg-black text-white">
         <AudioProvider>
-
           <NowPlayingProvider>
-
             <Header />
 
             <main className="pt-20 pb-32">
@@ -49,9 +133,7 @@ export default function RootLayout({
             <Footer />
 
             <PlayerBar />
-
           </NowPlayingProvider>
-
         </AudioProvider>
       </body>
     </html>
