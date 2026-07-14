@@ -5,7 +5,6 @@ import "./globals.css";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import PlayerBar from "../components/PlayerBar";
-import TuneInFloatingButton from "../components/TuneInFloatingButton";
 
 import { AudioProvider } from "../context/AudioContext";
 import { NowPlayingProvider } from "../context/NowPlayingContext";
@@ -133,7 +132,6 @@ export default function RootLayout({
 
             <Footer />
 
-            <TuneInFloatingButton />
 
             <PlayerBar />
           </NowPlayingProvider>
