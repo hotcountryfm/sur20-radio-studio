@@ -5,6 +5,7 @@ import "./globals.css";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import PlayerBar from "../components/PlayerBar";
+import TuneInFloatingButton from "../components/TuneInFloatingButton";
 
 import { AudioProvider } from "../context/AudioContext";
 import { NowPlayingProvider } from "../context/NowPlayingContext";
@@ -126,11 +127,13 @@ export default function RootLayout({
           <NowPlayingProvider>
             <Header />
 
-            <main className="pt-20 pb-32">
+            <main className="pb-32 pt-20">
               {children}
             </main>
 
             <Footer />
+
+            <TuneInFloatingButton />
 
             <PlayerBar />
           </NowPlayingProvider>
