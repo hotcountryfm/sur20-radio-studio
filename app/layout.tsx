@@ -61,6 +61,9 @@ export const metadata: Metadata = {
   manifest: "/manifest.json",
 
 themeColor: "#FFD400",
+formatDetection: {
+  telephone: false,
+},
 
   category: "music",
 
@@ -107,12 +110,17 @@ themeColor: "#FFD400",
       "max-snippet": -1,
     },
   },
-
-  icons: {
-  icon: "/icons/icon-192.png",
+icons: {
+  icon: [
+    {
+      url: "/icons/icon-192.png",
+      type: "image/png",
+    },
+  ],
   shortcut: "/icons/icon-192.png",
   apple: "/icons/apple-touch-icon.png",
 },
+
 };
 
 export default function RootLayout({
