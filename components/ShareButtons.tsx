@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import {
   FaFacebookF,
   FaWhatsapp,
-  FaTelegramPlane,
+  FaTelegram,
   FaXTwitter,
   FaEnvelope,
   FaLink,
@@ -101,7 +101,7 @@ export default function ShareButtons({ title, url }: Props) {
           rel="noopener noreferrer"
           className="flex items-center gap-2 rounded-lg bg-sky-500 px-4 py-2 text-white transition hover:opacity-90"
         >
-          <FaTelegramPlane />
+          <FaTelegram />
           Telegram
         </a>
 
