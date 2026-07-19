@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import parse from "html-react-parser";
 import { supabase } from "@/lib/supabase";
+export const dynamic = "force-dynamic";
 
 
 export default async function NoticiasPage() {
