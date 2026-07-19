@@ -10,10 +10,31 @@ function createSlug(text: string) {
     .replace(/(^-|-$)/g, "");
 }
 
+async function generateUniqueSlug(title: string) {
+  const baseSlug = createSlug(title);
+  let slug = baseSlug;
+  let counter = 2;
+
+  while (true) {
+    const { data } = await supabase
+      .from("news")
+      .select("id")
+      .eq("slug", slug)
+      .maybeSingle();
+
+    if (!data) {
+      return slug;
+    }
+
+    slug = `${baseSlug}-${counter}`;
+    counter++;
+  }
+}
+
 export async function POST(request: Request) {
   const body = await request.json();
 
-  const slug = createSlug(body.title);
+  const slug = await generateUniqueSlug(body.title);
 
   const { data, error } = await supabase
     .from("news")
