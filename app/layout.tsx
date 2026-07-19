@@ -1,5 +1,5 @@
 import InstallPrompt from "../components/InstallPrompt";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -58,12 +58,8 @@ export const metadata: Metadata = {
   publisher: "SUR20 Radio",
 
   applicationName: "SUR20 Radio",
-  manifest: "/manifest.json",
 
-themeColor: "#FFD400",
-formatDetection: {
-  telephone: false,
-},
+  manifest: "/manifest.json",
 
   category: "music",
 
@@ -79,7 +75,6 @@ formatDetection: {
     title: "SUR20 Radio",
     description:
       "La mejor música de los 80, 90 y 2000 durante las 24 horas.",
-
     images: [
       {
         url: "/og-image.jpg",
@@ -101,7 +96,6 @@ formatDetection: {
   robots: {
     index: true,
     follow: true,
-
     googleBot: {
       index: true,
       follow: true,
@@ -110,17 +104,25 @@ formatDetection: {
       "max-snippet": -1,
     },
   },
-icons: {
-  icon: [
-    {
-      url: "/icons/icon-192.png",
-      type: "image/png",
-    },
-  ],
-  shortcut: "/icons/icon-192.png",
-  apple: "/icons/apple-touch-icon.png",
-},
 
+  icons: {
+    icon: [
+      {
+        url: "/icons/icon-192.png",
+        type: "image/png",
+      },
+    ],
+    shortcut: "/icons/icon-192.png",
+    apple: "/icons/apple-touch-icon.png",
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#FFD400",
+};
+
+export const formatDetection = {
+  telephone: false,
 };
 
 export default function RootLayout({
@@ -136,16 +138,15 @@ export default function RootLayout({
       <body className="min-h-full bg-black text-white">
         <AudioProvider>
           <NowPlayingProvider>
-<Header />
+            <Header />
 
-<InstallPrompt />
+            <InstallPrompt />
 
-<main className="pb-32 pt-20">
+            <main className="pt-20 pb-32">
               {children}
             </main>
 
             <Footer />
-
 
             <PlayerBar />
           </NowPlayingProvider>
