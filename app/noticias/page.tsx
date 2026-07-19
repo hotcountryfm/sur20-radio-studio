@@ -141,7 +141,7 @@ export default async function NoticiasPage() {
 
 
 
-console.log("SLUG NOTICIA:", item.slug);
+
                 <Link
 
                   href={`/noticias/${item.slug}`}
