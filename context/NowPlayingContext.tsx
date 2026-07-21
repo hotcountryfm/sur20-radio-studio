@@ -11,13 +11,14 @@ import {
 type NowPlaying = {
   artist: string;
   song: string;
+  cover: string;
 };
 
-const NowPlayingContext =
-  createContext<NowPlaying>({
-    artist: "SUR20 RADIO",
-    song: "Tu compañía, tu voz",
-  });
+const NowPlayingContext = createContext<NowPlaying>({
+  artist: "SUR20 RADIO",
+  song: "Tu compañía, tu voz",
+  cover: "/icons/icon-512.png",
+});
 
 export function NowPlayingProvider({
   children,
@@ -26,6 +27,7 @@ export function NowPlayingProvider({
 }) {
   const [artist, setArtist] = useState("SUR20 RADIO");
   const [song, setSong] = useState("Tu compañía, tu voz");
+  const [cover, setCover] = useState("/icons/icon-512.png");
 
   useEffect(() => {
     async function loadSong() {
@@ -38,6 +40,7 @@ export function NowPlayingProvider({
 
         if (data.artist) setArtist(data.artist);
         if (data.song) setSong(data.song);
+        if (data.cover) setCover(data.cover);
       } catch (err) {
         console.error(err);
       }
@@ -55,6 +58,7 @@ export function NowPlayingProvider({
       value={{
         artist,
         song,
+        cover,
       }}
     >
       {children}

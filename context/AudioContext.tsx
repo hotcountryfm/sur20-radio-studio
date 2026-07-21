@@ -34,26 +34,27 @@ export function AudioProvider({
 
   const [playing, setPlaying] = useState(false);
   const [volume, setVolumeState] = useState(100);
-  const { artist, song } = useNowPlaying();
+ const { artist, song, cover } = useNowPlaying();
   useEffect(() => {
+  
   if (!("mediaSession" in navigator)) return;
 
   navigator.mediaSession.metadata = new MediaMetadata({
     title: song,
     artist: artist,
     album: "SUR20 RADIO",
-    artwork: [
-      {
-        src: "/icons/icon-512.png",
-        sizes: "512x512",
-        type: "image/png",
-      },
-      {
-        src: "/icons/icon-192.png",
-        sizes: "192x192",
-        type: "image/png",
-      },
-    ],
+   artwork: [
+  {
+    src: cover,
+    sizes: "512x512",
+    type: "image/png",
+  },
+  {
+    src: cover,
+    sizes: "100x100",
+    type: "image/png",
+  },
+],
   });
 }, [artist, song]);
 
