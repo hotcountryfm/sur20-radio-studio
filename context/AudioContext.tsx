@@ -1,3 +1,4 @@
+
 "use client";
 
 import {
@@ -5,8 +6,11 @@ import {
   useContext,
   useRef,
   useState,
+  useEffect,
   ReactNode,
 } from "react";
+
+import { useNowPlaying } from "./NowPlayingContext";
 
 import { STATION } from "../lib/constants";
 
@@ -30,17 +34,13 @@ export function AudioProvider({
 
   const [playing, setPlaying] = useState(false);
   const [volume, setVolumeState] = useState(100);
+  const { artist, song } = useNowPlaying();
+  useEffect(() => {
+  if (!("mediaSession" in navigator)) return;
 
-  const play = async () => {
-    if (!audioRef.current) {
-      audioRef.current = new Audio(STATION.streamUrl);
-      audioRef.current.preload = "none";
-      audioRef.current.volume = volume / 100;
-    }
-    if ("mediaSession" in navigator) {
   navigator.mediaSession.metadata = new MediaMetadata({
-    title: "SUR20 RADIO",
-    artist: "La mejor música de los 80, 90 y 2000",
+    title: song,
+    artist: artist,
     album: "SUR20 RADIO",
     artwork: [
       {
@@ -55,17 +55,15 @@ export function AudioProvider({
       },
     ],
   });
+}, [artist, song]);
 
-  navigator.mediaSession.setActionHandler("play", () => {
-    audioRef.current?.play();
-    setPlaying(true);
-  });
-
-  navigator.mediaSession.setActionHandler("pause", () => {
-    audioRef.current?.pause();
-    setPlaying(false);
-  });
-}
+  const play = async () => {
+    if (!audioRef.current) {
+      audioRef.current = new Audio(STATION.streamUrl);
+      audioRef.current.preload = "none";
+      audioRef.current.volume = volume / 100;
+    }
+   
 
     try {
       await audioRef.current.play();

@@ -105,16 +105,11 @@ export const metadata: Metadata = {
     },
   },
 
-  icons: {
-    icon: [
-      {
-        url: "/icons/icon-192.png",
-        type: "image/png",
-      },
-    ],
-    shortcut: "/icons/icon-192.png",
-    apple: "/icons/apple-touch-icon.png",
-  },
+icons: {
+  icon: "/icons/favicon.ico",
+  shortcut: "/icons/favicon.ico",
+  apple: "/icons/apple-touch-icon.png",
+},
 };
 
 export const viewport: Viewport = {
@@ -135,23 +130,23 @@ export default function RootLayout({
       lang="es"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full bg-black text-white">
-        <AudioProvider>
-          <NowPlayingProvider>
-            <Header />
+   <body className="min-h-full bg-black text-white">
+  <NowPlayingProvider>
+    <AudioProvider>
+      <Header />
 
-            <InstallPrompt />
+      <InstallPrompt />
 
-            <main className="pt-20 pb-32">
-              {children}
-            </main>
+      <main className="pt-20 pb-32">
+        {children}
+      </main>
 
-            <Footer />
+      <Footer />
 
-            <PlayerBar />
-          </NowPlayingProvider>
-        </AudioProvider>
-      </body>
+      <PlayerBar />
+    </AudioProvider>
+  </NowPlayingProvider>
+</body>   
     </html>
   );
 }
