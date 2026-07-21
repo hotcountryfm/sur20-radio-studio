@@ -37,6 +37,35 @@ export function AudioProvider({
       audioRef.current.preload = "none";
       audioRef.current.volume = volume / 100;
     }
+    if ("mediaSession" in navigator) {
+  navigator.mediaSession.metadata = new MediaMetadata({
+    title: "SUR20 RADIO",
+    artist: "La mejor música de los 80, 90 y 2000",
+    album: "SUR20 RADIO",
+    artwork: [
+      {
+        src: "/icons/icon-512.png",
+        sizes: "512x512",
+        type: "image/png",
+      },
+      {
+        src: "/icons/icon-192.png",
+        sizes: "192x192",
+        type: "image/png",
+      },
+    ],
+  });
+
+  navigator.mediaSession.setActionHandler("play", () => {
+    audioRef.current?.play();
+    setPlaying(true);
+  });
+
+  navigator.mediaSession.setActionHandler("pause", () => {
+    audioRef.current?.pause();
+    setPlaying(false);
+  });
+}
 
     try {
       await audioRef.current.play();
