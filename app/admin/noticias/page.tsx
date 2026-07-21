@@ -3,6 +3,7 @@ import Image from "next/image";
 import { supabase } from "@/lib/supabase";
 import DeleteNewsButton from "@/components/admin/DeleteNewsButton";
 
+export const dynamic = "force-dynamic";
 export default async function AdminNoticiasPage() {
   const { data: news, error } = await supabase
     .from("news")

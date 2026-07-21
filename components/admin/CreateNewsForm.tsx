@@ -66,8 +66,7 @@ export default function CreateNewsForm() {
 
 
 
-    router.push("/admin/noticias");
-    router.refresh();
+ window.location.href = "/admin/noticias";
 
   }
 
