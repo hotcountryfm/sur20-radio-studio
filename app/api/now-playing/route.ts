@@ -37,13 +37,15 @@ export async function GET() {
 
         const results = await itunes.json();
 
-        if (results.resultCount > 0) {
-          cover =
-            results.results[0].artworkUrl100.replace(
-              "100x100bb",
-              "512x512bb"
-            );
-        }
+       if (results.resultCount > 0) {
+  const artwork =
+    results.results[0].artworkUrl100.replace(
+      "100x100bb",
+      "512x512bb"
+    );
+
+  cover = `/api/artwork?cover=${encodeURIComponent(artwork)}`;
+}
       } catch {
         // Si falla iTunes usamos el logo de SUR20 RADIO
       }
