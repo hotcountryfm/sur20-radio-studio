@@ -1,4 +1,3 @@
-
 "use client";
 
 import {
@@ -11,7 +10,6 @@ import {
 } from "react";
 
 import { useNowPlaying } from "./NowPlayingContext";
-
 import { STATION } from "../lib/constants";
 
 type AudioContextType = {
@@ -34,31 +32,30 @@ export function AudioProvider({
 
   const [playing, setPlaying] = useState(false);
   const [volume, setVolumeState] = useState(100);
- const { artist, song, cover } = useNowPlaying();
+
+  const { artist, song, cover } = useNowPlaying();
+
   useEffect(() => {
-  
-  if (!("mediaSession" in navigator)) return;
+    if (!("mediaSession" in navigator)) return;
 
-const artwork = await createArtwork(cover);
-
-navigator.mediaSession.metadata = new MediaMetadata({
-  title: song,
-  artist: artist,
-  album: "🔴 SUR20 RADIO · EN DIRECTO",
-  artwork: [
-    {
-      src: cover,
-      sizes: "512x512",
-      type: "image/png",
-    },
-    {
-      src: "/icons/icon-512.png",
-      sizes: "512x512",
-      type: "image/png",
-    },
-  ],
-});
-}, [artist, song]);
+    navigator.mediaSession.metadata = new MediaMetadata({
+      title: song,
+      artist: artist,
+      album: "🔴 SUR20 RADIO · EN DIRECTO",
+      artwork: [
+        {
+          src: cover,
+          sizes: "512x512",
+          type: "image/png",
+        },
+        {
+          src: "/icons/icon-512.png",
+          sizes: "512x512",
+          type: "image/png",
+        },
+      ],
+    });
+  }, [artist, song, cover]);
 
   const play = async () => {
     if (!audioRef.current) {
@@ -66,7 +63,6 @@ navigator.mediaSession.metadata = new MediaMetadata({
       audioRef.current.preload = "none";
       audioRef.current.volume = volume / 100;
     }
-   
 
     try {
       await audioRef.current.play();
