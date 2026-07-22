@@ -55,7 +55,8 @@ navigator.mediaSession.metadata = new MediaMetadata({
   const play = async () => {
     if (!audioRef.current) {
       audioRef.current = new Audio(STATION.streamUrl);
-      audioRef.current.preload = "none";
+      audioRef.current.preload = "auto";
+      audioRef.current.crossOrigin = "anonymous";
       audioRef.current.volume = volume / 100;
     }
 
