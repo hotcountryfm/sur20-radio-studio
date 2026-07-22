@@ -44,7 +44,7 @@ export function AudioProvider({
       album: "🔴 SUR20 RADIO · EN DIRECTO",
       artwork: [
         {
-          src: cover,
+          src: "/artwork.svg",
           sizes: "512x512",
           type: "image/png",
         },
