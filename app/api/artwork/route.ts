@@ -33,38 +33,41 @@ export async function GET(request: Request) {
     width="512"
     height="512"/>
 
-  <rect
-    x="0"
-    y="420"
-    width="512"
-    height="92"
-    fill="#000"
-    fill-opacity="0.75"/>
+<rect
+  x="0"
+  y="392"
+  width="512"
+  height="120"
+  fill="rgba(0,0,0,0.82)"
+/>
 
-  <image
-    href="/icons/icon-512.png"
-    x="15"
-    y="430"
-    width="64"
-    height="64"/>
+<image
+  href="${logoData}"
+  x="18"
+  y="420"
+  width="72"
+  height="72"
+/>
 
-  <text
-    x="95"
-    y="470"
-    font-size="30"
-    fill="white"
-    font-family="Arial">
-    SUR20 RADIO
-  </text>
+<text
+  x="105"
+  y="445"
+  fill="white"
+  font-size="50"
+  font-family="Arial"
+  font-weight="900">
+  SUR20 RADIO
+</text>
 
-  <text
-    x="95"
-    y="500"
-    font-size="20"
-    fill="#ff4444"
-    font-family="Arial">
-    ● EN DIRECTO
-  </text>
+<text
+  x="107"
+  y="482"
+  fill="#ff4040"
+  font-size="28"
+  font-family="Arial"
+  font-weight="900">
+  ● EN DIRECTO
+</text>
 
 </svg>`;
 
