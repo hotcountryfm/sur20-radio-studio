@@ -39,23 +39,25 @@ export function AudioProvider({
   
   if (!("mediaSession" in navigator)) return;
 
-  navigator.mediaSession.metadata = new MediaMetadata({
-    title: song,
-    artist: artist,
-    album: "SUR20 RADIO",
-   artwork: [
-  {
-    src: cover,
-    sizes: "512x512",
-    type: "image/png",
-  },
-  {
-    src: cover,
-    sizes: "100x100",
-    type: "image/png",
-  },
-],
-  });
+const artwork = await createArtwork(cover);
+
+navigator.mediaSession.metadata = new MediaMetadata({
+  title: song,
+  artist: artist,
+  album: "🔴 SUR20 RADIO · EN DIRECTO",
+  artwork: [
+    {
+      src: cover,
+      sizes: "512x512",
+      type: "image/png",
+    },
+    {
+      src: "/icons/icon-512.png",
+      sizes: "512x512",
+      type: "image/png",
+    },
+  ],
+});
 }, [artist, song]);
 
   const play = async () => {
