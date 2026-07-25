@@ -1,73 +1,64 @@
 import { NextResponse } from "next/server";
 import { supabase } from "@/lib/supabase";
 
-type Params = {
-  params: Promise<{
-    id: string;
-  }>;
-};
-
-// ELIMINAR
-export async function DELETE(
-  request: Request,
-  { params }: Params
-) {
-  const { id } = await params;
-
-  const { error } = await supabase
-    .from("baul_articles")
-    .delete()
-    .eq("id", id);
-
-  if (error) {
-    return NextResponse.json(
-      {
-        success: false,
-        error: error.message,
-      },
-      { status: 500 }
-    );
-  }
-
-  return NextResponse.json({
-    success: true,
-  });
+function slugify(text: string) {
+  return text
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9\s-]/g, "")
+    .trim()
+    .replace(/\s+/g, "-");
 }
 
-// EDITAR
-export async function PUT(
-  request: Request,
-  { params }: Params
-) {
-  const { id } = await params;
+export async function POST(request: Request) {
+  try {
+    const body = await request.json();
 
-  const body = await request.json();
+    const slug = slugify(body.title);
 
-  const { data, error } = await supabase
-    .from("baul_articles")
-    .update({
-      title: body.title,
-      excerpt: body.excerpt,
-      content: body.content,
-      image_url: body.image_url,
-      category: body.category,
-      status: body.status,
-    })
-    .eq("id", id)
-    .select();
+    const { data, error } = await supabase
+      .from("baul_articles")
+      .insert({
+        title: body.title,
+        slug,
+        excerpt: body.excerpt,
+        content: body.content,
+        image_url: body.image_url,
+        category: body.category,
+        author: body.author ?? "JM. Torres",
+        seo_title: body.seo_title ?? body.title,
+        seo_description: body.seo_description ?? body.excerpt,
+        status: body.status ?? "draft",
+        published_at:
+          body.status === "published"
+            ? new Date().toISOString()
+            : null,
+      })
+      .select()
+      .single();
 
-  if (error) {
+    if (error) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: error.message,
+        },
+        { status: 500 }
+      );
+    }
+
+    return NextResponse.json({
+      success: true,
+      data,
+    });
+  } catch (error) {
     return NextResponse.json(
       {
         success: false,
-        error: error.message,
+        error: "Error al crear el artículo.",
       },
       { status: 500 }
     );
   }
-
-  return NextResponse.json({
-    success: true,
-    data,
-  });
 }
