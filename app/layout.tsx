@@ -1,4 +1,6 @@
 import InstallPrompt from "../components/InstallPrompt";
+import FacebookBrowserWarning from "../components/FacebookBrowserWarning";
+
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
@@ -105,11 +107,11 @@ export const metadata: Metadata = {
     },
   },
 
-icons: {
-  icon: "/icons/favicon.ico",
-  shortcut: "/icons/favicon.ico",
-  apple: "/icons/apple-touch-icon.png",
-},
+  icons: {
+    icon: "/icons/favicon.ico",
+    shortcut: "/icons/favicon.ico",
+    apple: "/icons/apple-touch-icon.png",
+  },
 };
 
 export const viewport: Viewport = {
@@ -130,23 +132,25 @@ export default function RootLayout({
       lang="es"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-   <body className="min-h-full bg-black text-white">
-  <NowPlayingProvider>
-    <AudioProvider>
-      <Header />
+      <body className="min-h-full bg-black text-white">
+        <NowPlayingProvider>
+          <AudioProvider>
+            <Header />
 
-      <InstallPrompt />
+            <InstallPrompt />
 
-      <main className="pt-20 pb-32">
-        {children}
-      </main>
+            <FacebookBrowserWarning />
 
-      <Footer />
+            <main className="pt-20 pb-32">
+              {children}
+            </main>
 
-      <PlayerBar />
-    </AudioProvider>
-  </NowPlayingProvider>
-</body>   
+            <Footer />
+
+            <PlayerBar />
+          </AudioProvider>
+        </NowPlayingProvider>
+      </body>
     </html>
   );
 }
