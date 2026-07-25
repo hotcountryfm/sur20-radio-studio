@@ -6,6 +6,7 @@ import FeaturedPrograms from "../components/FeaturedPrograms";
 import FadeIn from "../components/FadeIn";
 import NowPlayingCard from "../components/home/NowPlayingCard";
 import LatestNews from "../components/home/LatestNews";
+import LatestBaul from "../components/home/LatestBaul";
 
 export default function Home() {
   return (
