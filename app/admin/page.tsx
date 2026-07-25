@@ -11,6 +11,10 @@ export default async function AdminPage() {
     .from("news")
     .select("*", { count: "exact", head: true });
 
+  const { count: totalBaul } = await supabase
+    .from("baul_articles")
+    .select("*", { count: "exact", head: true });
+
   return (
     <main className="min-h-screen bg-black text-white">
       <div className="mx-auto max-w-7xl px-8 py-20">
@@ -31,7 +35,7 @@ export default async function AdminPage() {
 
         </div>
 
-        <div className="mt-12 grid gap-6 md:grid-cols-4">
+        <div className="mt-12 grid gap-6 md:grid-cols-5">
 
           <div className="rounded-3xl bg-neutral-900 p-8">
             <p className="text-gray-400">
@@ -50,6 +54,16 @@ export default async function AdminPage() {
 
             <h2 className="mt-4 text-5xl font-black text-yellow-400">
               {totalNoticias ?? 0}
+            </h2>
+          </div>
+
+          <div className="rounded-3xl bg-neutral-900 p-8">
+            <p className="text-gray-400">
+              📚 El Baúl
+            </p>
+
+            <h2 className="mt-4 text-5xl font-black text-yellow-400">
+              {totalBaul ?? 0}
             </h2>
           </div>
 
@@ -95,6 +109,13 @@ export default async function AdminPage() {
               className="rounded-xl bg-blue-600 px-6 py-4 font-bold text-white transition hover:bg-blue-700"
             >
               📰 Gestionar Noticias
+            </Link>
+
+            <Link
+              href="/admin/baul"
+              className="rounded-xl bg-purple-600 px-6 py-4 font-bold text-white transition hover:bg-purple-700"
+            >
+              📚 El Baúl de los Recuerdos
             </Link>
 
           </div>
