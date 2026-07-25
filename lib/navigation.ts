@@ -12,6 +12,10 @@ export const NAVIGATION = [
     href: "/noticias",
   },
   {
+    label: "El Baúl",
+    href: "/baul",
+  },
+  {
     label: "Contacto",
     href: "/contacto",
   },
