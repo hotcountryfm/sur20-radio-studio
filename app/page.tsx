@@ -22,6 +22,10 @@ export default function Home() {
       </FadeIn>
 
       <FadeIn>
+        <LatestBaul />
+      </FadeIn>
+
+      <FadeIn>
         <Features />
       </FadeIn>
 
