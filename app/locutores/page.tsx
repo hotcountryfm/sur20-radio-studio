@@ -15,7 +15,7 @@ import {
 export const metadata: Metadata = {
   title: "Nuestros Locutores | SUR20 RADIO",
   description:
-    "Conoce a los locutores que forman parte de SUR20 RADIO.",
+    "Conoce al equipo de locutores de SUR20 RADIO.",
 };
 
 export default function LocutoresPage() {
@@ -25,7 +25,7 @@ export default function LocutoresPage() {
       <HeroBanner
         badge="SUR20 RADIO"
         title="Nuestros Locutores"
-        subtitle="Desde distintos lugares del mundo, nuestros locutores comparten la pasión por la radio y la mejor música para acompañarte cada día."
+        subtitle="La voz de SUR20 RADIO está formada por profesionales apasionados por la música y la comunicación, emitiendo desde distintos lugares del mundo."
       >
         <div className="grid gap-6 md:grid-cols-3">
 
@@ -37,7 +37,7 @@ export default function LocutoresPage() {
 
           <StatsCard
             icon={<Globe2 size={42} />}
-            value="2"
+            value="3"
             label="Países"
           />
 
@@ -49,8 +49,6 @@ export default function LocutoresPage() {
 
         </div>
       </HeroBanner>
-
-      {/* Tarjetas */}
 
       <section className="mx-auto max-w-7xl px-6 py-20">
 
@@ -67,8 +65,6 @@ export default function LocutoresPage() {
 
       </section>
 
-      {/* CTA */}
-
       <section className="border-t border-slate-800">
 
         <div className="mx-auto max-w-4xl px-6 py-20 text-center">
@@ -78,13 +74,13 @@ export default function LocutoresPage() {
           </h2>
 
           <p className="mt-6 text-lg leading-8 text-slate-400">
-            Si te apasiona la radio y quieres compartir tu programa con nuestros
-            oyentes, estaremos encantados de conocerte.
+            Si la radio es tu pasión y tienes un proyecto que compartir,
+            estaremos encantados de conocerte.
           </p>
 
           <a
             href="/contacto"
-            className="mt-10 inline-flex rounded-xl bg-sky-500 px-8 py-4 font-semibold text-slate-950 transition-all duration-300 hover:bg-sky-400 hover:shadow-lg hover:shadow-sky-500/30"
+            className="mt-10 inline-flex rounded-xl bg-sky-500 px-8 py-4 font-semibold text-slate-950 transition hover:bg-sky-400"
           >
             Contactar con SUR20 RADIO
           </a>

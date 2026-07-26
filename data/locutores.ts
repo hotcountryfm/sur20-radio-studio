@@ -21,7 +21,7 @@ export const locutores: Locutor[] = [
     descripcion:
       "Desde Londres comparte la mejor música y toda la pasión por la radio con los oyentes de SUR20 RADIO.",
     imagen: "/locutores/GORGE.png",
-    urlPrograma: "#",
+    urlPrograma: "/locutores/george",
   },
   {
     id: 2,
@@ -31,8 +31,32 @@ export const locutores: Locutor[] = [
     ciudad: "Texas",
     programa: "Los Gigantes del Pasado",
     descripcion:
-      "Un recorrido por los grandes éxitos de los años 80 y 90 que siguen formando parte de la banda sonora de nuestras vidas.",
+      "Un recorrido por los grandes éxitos de los años 80 y 90.",
     imagen: "/locutores/logo JR nestor.jpg",
-    urlPrograma: "/gigantes",
+    urlPrograma: "/locutores/jr-nestor-luis",
+  },
+  {
+    id: 3,
+    nombre: "Dora",
+    pais: "España",
+    bandera: "🇪🇸",
+    ciudad: "Bilbao",
+    programa: "El Baúl de los Recuerdos",
+    descripcion:
+      "La música que nunca pasa de moda.",
+    imagen: "/locutores/dora.png",
+    urlPrograma: "/locutores/dora",
+  },
+  {
+    id: 4,
+    nombre: "JM. Torres",
+    pais: "España",
+    bandera: "🇪🇸",
+    ciudad: "Bilbao",
+    programa: "Próximamente",
+    descripcion:
+      "Muy pronto con nosotros.",
+    imagen: "/locutores/jm-torres.png",
+    urlPrograma: "/locutores/jm-torres",
   },
 ];

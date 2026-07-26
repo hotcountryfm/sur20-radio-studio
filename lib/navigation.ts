@@ -8,6 +8,10 @@ export const NAVIGATION = [
     href: "/programacion",
   },
   {
+    label: "Locutores",
+    href: "/locutores",
+  },
+  {
     label: "Noticias",
     href: "/noticias",
   },

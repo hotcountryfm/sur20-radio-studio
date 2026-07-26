@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { MapPin, Radio } from "lucide-react";
+import { MapPin, ArrowRight } from "lucide-react";
 
 import AnimatedSection from "@/components/ui/AnimatedSection";
 import GlassCard from "@/components/ui/GlassCard";
@@ -15,77 +15,84 @@ interface Props {
 export default function LocutorCard({ locutor }: Props) {
   return (
     <AnimatedSection>
-      <GlassCard className="group overflow-hidden">
+      <GlassCard className="group overflow-hidden transition-all duration-500 hover:-translate-y-3 hover:shadow-2xl hover:shadow-sky-500/20">
 
-        {/* Imagen */}
-        <div className="relative aspect-[4/5] overflow-hidden">
+        <Link href={locutor.urlPrograma}>
 
-          <Image
-            src={locutor.imagen}
-            alt={locutor.nombre}
-            fill
-            sizes="(max-width:768px)100vw,(max-width:1200px)50vw,33vw"
-            className="object-cover transition-all duration-700 group-hover:scale-110"
-          />
+          {/* FOTO */}
+          <div className="relative h-[430px] overflow-hidden bg-gradient-to-b from-slate-900 to-black">
 
-          {/* Oscurecer la parte inferior */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
+            <Image
+              src={locutor.imagen}
+              alt={locutor.nombre}
+              fill
+              priority={false}
+              sizes="(max-width:768px)100vw,(max-width:1200px)50vw,33vw"
+              className="object-contain p-3 transition-transform duration-700 group-hover:scale-105"
+            />
 
-          {/* Programa */}
-          <div className="absolute bottom-5 left-5">
+            {/* Degradado */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/10 to-transparent" />
 
-            <span className="rounded-full bg-sky-500 px-4 py-2 text-sm font-bold text-slate-950 shadow-xl">
-              {locutor.programa}
-            </span>
+            {/* País */}
+            <div className="absolute left-5 top-5 rounded-full bg-sky-500/90 px-4 py-2 text-xs font-bold uppercase tracking-widest text-slate-950 backdrop-blur">
 
-          </div>
-
-        </div>
-
-        {/* Contenido */}
-
-        <div className="space-y-5 p-7">
-
-          <div>
-
-            <h2 className="text-3xl font-bold text-white">
-              {locutor.bandera} {locutor.nombre}
-            </h2>
-
-            <div className="mt-3 flex items-center gap-2 text-slate-400">
-
-              <MapPin className="h-5 w-5 text-sky-400" />
-
-              <span>
-                {locutor.ciudad}, {locutor.pais}
-              </span>
+              {locutor.bandera} {locutor.ciudad}
 
             </div>
 
           </div>
 
-          <div className="flex items-center gap-3 rounded-xl border border-sky-500/20 bg-sky-500/10 p-4">
+          {/* CONTENIDO */}
+          <div className="space-y-5 p-7">
 
-            <Radio className="h-5 w-5 text-sky-400" />
+            <div>
 
-            <span className="font-medium text-sky-300">
-              {locutor.programa}
-            </span>
+              <h2 className="text-3xl font-extrabold text-white transition-colors group-hover:text-sky-400">
+                {locutor.nombre}
+              </h2>
+
+              <div className="mt-3 flex items-center gap-2 text-slate-400">
+
+                <MapPin className="h-4 w-4 text-sky-400" />
+
+                <span>
+                  {locutor.ciudad}, {locutor.pais}
+                </span>
+
+              </div>
+
+            </div>
+
+            <div className="rounded-xl border border-sky-500/20 bg-sky-500/10 p-4">
+
+              <p className="text-sm uppercase tracking-widest text-sky-300">
+                Programa
+              </p>
+
+              <h3 className="mt-1 text-lg font-semibold text-white">
+                {locutor.programa}
+              </h3>
+
+            </div>
+
+            <p className="line-clamp-4 leading-7 text-slate-300">
+              {locutor.descripcion}
+            </p>
+
+            {/* BOTÓN */}
+
+            <div className="flex items-center justify-between rounded-xl bg-sky-500 px-5 py-4 font-semibold text-slate-950 transition-all duration-300 group-hover:bg-sky-400">
+
+              <span>Conocer al locutor</span>
+
+              <ArrowRight className="transition-transform duration-300 group-hover:translate-x-1" />
+
+            </div>
 
           </div>
 
-          <p className="leading-7 text-slate-300">
-            {locutor.descripcion}
-          </p>
-
-          <Link
-            href={locutor.urlPrograma}
-            className="flex items-center justify-center rounded-xl bg-sky-500 py-3 font-semibold text-slate-950 transition-all duration-300 hover:bg-sky-400 hover:shadow-xl hover:shadow-sky-500/30"
-          >
-            Ver programa →
-          </Link>
-
-        </div>
+        </Link>
 
       </GlassCard>
     </AnimatedSection>
