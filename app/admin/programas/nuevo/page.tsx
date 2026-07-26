@@ -88,6 +88,40 @@ export default function NuevoProgramaPage() {
 
           </div>
 
+          {/* NUEVO */}
+
+          <div className="grid gap-6 md:grid-cols-2">
+
+            <div>
+              <label className="mb-2 block font-semibold">
+                Imagen
+              </label>
+
+              <input
+                name="image"
+                type="text"
+                placeholder="/locutores/alex.png"
+                className="w-full rounded-xl border border-neutral-700 bg-neutral-900 p-4 outline-none focus:border-yellow-400"
+              />
+            </div>
+
+            <div>
+              <label className="mb-2 block font-semibold">
+                URL del locutor
+              </label>
+
+              <input
+                name="locutor_url"
+                type="text"
+                placeholder="/locutores/alex"
+                className="w-full rounded-xl border border-neutral-700 bg-neutral-900 p-4 outline-none focus:border-yellow-400"
+              />
+            </div>
+
+          </div>
+
+          {/* FIN NUEVO */}
+
           <div>
 
             <label className="mb-2 block font-semibold">

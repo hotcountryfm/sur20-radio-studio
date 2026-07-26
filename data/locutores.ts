@@ -59,4 +59,16 @@ export const locutores: Locutor[] = [
     imagen: "/locutores/jm-torres.png",
     urlPrograma: "/locutores/jm-torres",
   },
+  {
+  id: 5,
+  nombre: "Alex",
+  pais: "España",
+  bandera: "🇪🇸",
+  ciudad: "Valencia",
+  programa: "El Ritmo de tu Tarde",
+  descripcion:
+    "Desde Valencia, Alex presenta 'Ecos del Pop Español', un viaje por los grandes éxitos del pop español de los años 80 y 90.",
+  imagen: "/locutores/alex.png",
+  urlPrograma: "/locutores/alex",
+},
 ];

@@ -11,6 +11,8 @@ type Program = {
   start_time: string;
   end_time: string;
   description: string;
+  image: string;
+  locutor_url: string;
 };
 
 export default function EditProgramForm({
@@ -25,6 +27,8 @@ export default function EditProgramForm({
   const [presenter, setPresenter] = useState(program.presenter);
   const [startTime, setStartTime] = useState(program.start_time);
   const [endTime, setEndTime] = useState(program.end_time);
+  const [image, setImage] = useState(program.image ?? "");
+  const [locutorUrl, setLocutorUrl] = useState(program.locutor_url ?? "");
   const [description, setDescription] = useState(program.description);
   const [saving, setSaving] = useState(false);
 
@@ -44,6 +48,8 @@ export default function EditProgramForm({
         presenter,
         start_time: startTime,
         end_time: endTime,
+        image,
+        locutor_url: locutorUrl,
         description,
       }),
     });
@@ -79,7 +85,6 @@ export default function EditProgramForm({
       <div className="grid gap-6 md:grid-cols-2">
 
         <div>
-
           <label className="mb-2 block font-semibold">
             Día
           </label>
@@ -89,11 +94,9 @@ export default function EditProgramForm({
             onChange={(e) => setDay(e.target.value)}
             className="w-full rounded-xl border border-neutral-700 bg-neutral-900 p-4"
           />
-
         </div>
 
         <div>
-
           <label className="mb-2 block font-semibold">
             Presentador
           </label>
@@ -103,7 +106,6 @@ export default function EditProgramForm({
             onChange={(e) => setPresenter(e.target.value)}
             className="w-full rounded-xl border border-neutral-700 bg-neutral-900 p-4"
           />
-
         </div>
 
       </div>
@@ -111,7 +113,6 @@ export default function EditProgramForm({
       <div className="grid gap-6 md:grid-cols-2">
 
         <div>
-
           <label className="mb-2 block font-semibold">
             Hora inicio
           </label>
@@ -122,11 +123,9 @@ export default function EditProgramForm({
             onChange={(e) => setStartTime(e.target.value)}
             className="w-full rounded-xl border border-neutral-700 bg-neutral-900 p-4"
           />
-
         </div>
 
         <div>
-
           <label className="mb-2 block font-semibold">
             Hora fin
           </label>
@@ -137,13 +136,41 @@ export default function EditProgramForm({
             onChange={(e) => setEndTime(e.target.value)}
             className="w-full rounded-xl border border-neutral-700 bg-neutral-900 p-4"
           />
+        </div>
 
+      </div>
+
+      <div className="grid gap-6 md:grid-cols-2">
+
+        <div>
+          <label className="mb-2 block font-semibold">
+            Imagen
+          </label>
+
+          <input
+            value={image}
+            onChange={(e) => setImage(e.target.value)}
+            placeholder="/locutores/alex.png"
+            className="w-full rounded-xl border border-neutral-700 bg-neutral-900 p-4"
+          />
+        </div>
+
+        <div>
+          <label className="mb-2 block font-semibold">
+            URL del locutor
+          </label>
+
+          <input
+            value={locutorUrl}
+            onChange={(e) => setLocutorUrl(e.target.value)}
+            placeholder="/locutores/alex"
+            className="w-full rounded-xl border border-neutral-700 bg-neutral-900 p-4"
+          />
         </div>
 
       </div>
 
       <div>
-
         <label className="mb-2 block font-semibold">
           Descripción
         </label>
@@ -154,7 +181,6 @@ export default function EditProgramForm({
           onChange={(e) => setDescription(e.target.value)}
           className="w-full rounded-xl border border-neutral-700 bg-neutral-900 p-4"
         />
-
       </div>
 
       <div className="flex gap-4">

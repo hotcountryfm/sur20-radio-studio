@@ -12,6 +12,10 @@ export async function createProgram(formData: FormData): Promise<void> {
   const end_time = formData.get("end_time")?.toString() ?? "";
   const description = formData.get("description")?.toString() ?? "";
 
+  // NUEVOS CAMPOS
+  const image = formData.get("image")?.toString() ?? "";
+  const locutor_url = formData.get("locutor_url")?.toString() ?? "";
+
   const { error } = await supabase
     .from("programs")
     .insert([
@@ -22,6 +26,9 @@ export async function createProgram(formData: FormData): Promise<void> {
         start_time,
         end_time,
         description,
+        image,
+        locutor_url,
+        active: true,
       },
     ]);
 

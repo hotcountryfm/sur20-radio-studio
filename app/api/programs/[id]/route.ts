@@ -52,6 +52,8 @@ export async function PUT(
       start_time: body.start_time,
       end_time: body.end_time,
       description: body.description,
+      image: body.image,
+      locutor_url: body.locutor_url,
     })
     .eq("id", id)
     .select();
