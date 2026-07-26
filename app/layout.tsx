@@ -28,15 +28,15 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
 
   title: {
-    default: "SUR20 Radio | La mejor música de los 80, 90 y 2000",
-    template: "%s | SUR20 Radio",
+    default: "SUR20 RADIO | Tu radio, tu música, tu generación",
+    template: "%s | SUR20 RADIO",
   },
 
   description:
-    "Escucha SUR20 Radio en directo las 24 horas. La mejor selección de música de los años 80, 90 y 2000, programas especiales, noticias musicales y mucho más.",
+    "Escucha SUR20 RADIO en directo las 24 horas. Los mejores éxitos de los años 80, 90 y 2000, programas especiales, noticias musicales y mucho más.",
 
   keywords: [
-    "SUR20 Radio",
+    "SUR20 RADIO",
     "radio online",
     "emisora online",
     "música 80",
@@ -46,20 +46,21 @@ export const metadata: Metadata = {
     "pop",
     "rock",
     "dance",
+    "radio en directo",
     "TuneIn",
   ],
 
   authors: [
     {
-      name: "SUR20 Radio",
+      name: "SUR20 RADIO",
     },
   ],
 
-  creator: "SUR20 Radio",
+  creator: "SUR20 RADIO",
 
-  publisher: "SUR20 Radio",
+  publisher: "SUR20 RADIO",
 
-  applicationName: "SUR20 Radio",
+  applicationName: "SUR20 RADIO",
 
   manifest: "/manifest.json",
 
@@ -73,31 +74,38 @@ export const metadata: Metadata = {
     type: "website",
     locale: "es_ES",
     url: siteUrl,
-    siteName: "SUR20 Radio",
-    title: "SUR20 Radio",
+    siteName: "SUR20 RADIO",
+
+    title: "SUR20 RADIO",
+
     description:
-      "La mejor música de los 80, 90 y 2000 durante las 24 horas.",
+      "Tu radio, tu música, tu generación. Escucha los mejores éxitos de los 80, 90 y 2000 las 24 horas.",
+
     images: [
       {
-        url: "/og-image.jpg",
+        url: `${siteUrl}/og-image.png`,
         width: 1200,
         height: 630,
-        alt: "SUR20 Radio",
+        alt: "SUR20 RADIO",
       },
     ],
   },
 
   twitter: {
     card: "summary_large_image",
-    title: "SUR20 Radio",
+
+    title: "SUR20 RADIO",
+
     description:
-      "La mejor música de los 80, 90 y 2000 durante las 24 horas.",
-    images: ["/og-image.jpg"],
+      "Tu radio, tu música, tu generación.",
+
+    images: [`${siteUrl}/og-image.png`],
   },
 
   robots: {
     index: true,
     follow: true,
+
     googleBot: {
       index: true,
       follow: true,
