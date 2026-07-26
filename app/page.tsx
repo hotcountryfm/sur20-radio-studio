@@ -3,6 +3,7 @@ import Features from "../components/Features";
 import Stats from "../components/Stats";
 import NowPlaying from "../components/NowPlaying";
 import FeaturedPrograms from "../components/FeaturedPrograms";
+import HomeLocutores from "../components/HomeLocutores";
 import FadeIn from "../components/FadeIn";
 import NowPlayingCard from "../components/home/NowPlayingCard";
 import LatestNews from "../components/home/LatestNews";
@@ -39,6 +40,10 @@ export default function Home() {
 
       <FadeIn>
         <FeaturedPrograms />
+      </FadeIn>
+
+      <FadeIn>
+        <HomeLocutores />
       </FadeIn>
     </>
   );

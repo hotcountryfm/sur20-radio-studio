@@ -17,7 +17,7 @@ export const locutores: Locutor[] = [
     pais: "Reino Unido",
     bandera: "🇬🇧",
     ciudad: "Londres",
-    programa: "Próximamente",
+    programa: "The Disco Experience",
     descripcion:
       "Desde Londres comparte la mejor música y toda la pasión por la radio con los oyentes de SUR20 RADIO.",
     imagen: "/locutores/GORGE.png",
@@ -53,7 +53,7 @@ export const locutores: Locutor[] = [
     pais: "España",
     bandera: "🇪🇸",
     ciudad: "Bilbao",
-    programa: "Próximamente",
+    programa: "Matinales SUR20 RADIO · Todo Pop Español",
     descripcion:
       "Muy pronto con nosotros.",
     imagen: "/locutores/jm-torres.png",
