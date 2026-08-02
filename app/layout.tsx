@@ -115,11 +115,7 @@ export const metadata: Metadata = {
     },
   },
 
-  icons: {
-    icon: "/icons/favicon.ico",
-    shortcut: "/icons/favicon.ico",
-    apple: "/icons/apple-touch-icon.png",
-  },
+
 };
 
 export const viewport: Viewport = {
