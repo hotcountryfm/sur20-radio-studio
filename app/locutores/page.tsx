@@ -1,93 +1,164 @@
-import type { Metadata } from "next";
+import Link from "next/link";
+import { supabase } from "@/lib/supabase";
+import DeleteLocutorButton from "@/components/admin/DeleteLocutorButton";
 
-import HeroBanner from "@/components/sections/HeroBanner";
-import LocutorCard from "@/components/LocutorCard";
-import StatsCard from "@/components/ui/StatsCard";
+export default async function AdminLocutoresPage() {
+  const { data: locutores, error } = await supabase
+    .from("locutores")
+    .select("*")
+    .order("nombre");
 
-import { locutores } from "@/data/locutores";
+  if (error) {
+    return (
+      <main className="p-10 text-red-500">
+        <h1 className="text-3xl font-bold">
+          Error cargando locutores
+        </h1>
 
-import {
-  Users,
-  Globe2,
-  RadioTower,
-} from "lucide-react";
+        <p className="mt-4">{error.message}</p>
+      </main>
+    );
+  }
 
-export const metadata: Metadata = {
-  title: "Nuestros Locutores | SUR20 RADIO",
-  description:
-    "Conoce al equipo de locutores de SUR20 RADIO.",
-};
-
-export default function LocutoresPage() {
   return (
-    <main className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-white">
+    <main className="min-h-screen bg-black text-white">
+      <div className="mx-auto max-w-7xl px-8 py-20">
 
-      <HeroBanner
-        badge="SUR20 RADIO"
-        title="Nuestros Locutores"
-        subtitle="La voz de SUR20 RADIO está formada por profesionales apasionados por la música y la comunicación, emitiendo desde distintos lugares del mundo."
-      >
-        <div className="grid gap-6 md:grid-cols-3">
+        <div className="mb-10 flex items-center justify-between">
 
-          <StatsCard
-            icon={<Users size={42} />}
-            value={String(locutores.length)}
-            label="Locutores"
-          />
+          <div>
 
-          <StatsCard
-            icon={<Globe2 size={42} />}
-            value="3"
-            label="Países"
-          />
+            <h1 className="text-5xl font-black text-yellow-400">
+              Locutores
+            </h1>
 
-          <StatsCard
-            icon={<RadioTower size={42} />}
-            value="24/7"
-            label="Emisión"
-          />
+            <p className="mt-3 text-gray-400">
+              Gestión de locutores de SUR20 Radio
+            </p>
 
-        </div>
-      </HeroBanner>
+          </div>
 
-      <section className="mx-auto max-w-7xl px-6 py-20">
-
-        <div className="grid gap-10 md:grid-cols-2 xl:grid-cols-3">
-
-          {locutores.map((locutor) => (
-            <LocutorCard
-              key={locutor.id}
-              locutor={locutor}
-            />
-          ))}
-
-        </div>
-
-      </section>
-
-      <section className="border-t border-slate-800">
-
-        <div className="mx-auto max-w-4xl px-6 py-20 text-center">
-
-          <h2 className="text-4xl font-bold">
-            ¿Quieres formar parte de SUR20 RADIO?
-          </h2>
-
-          <p className="mt-6 text-lg leading-8 text-slate-400">
-            Si la radio es tu pasión y tienes un proyecto que compartir,
-            estaremos encantados de conocerte.
-          </p>
-
-          <a
-            href="/contacto"
-            className="mt-10 inline-flex rounded-xl bg-sky-500 px-8 py-4 font-semibold text-slate-950 transition hover:bg-sky-400"
+          <Link
+            href="/admin/locutores/nuevo"
+            className="rounded-xl bg-yellow-400 px-6 py-3 font-bold text-black hover:bg-yellow-300"
           >
-            Contactar con SUR20 RADIO
-          </a>
+            + Nuevo locutor
+          </Link>
 
         </div>
 
-      </section>
+        <div className="overflow-hidden rounded-2xl border border-yellow-500/20">
+
+          <table className="w-full">
+
+            <thead className="bg-neutral-900">
+
+              <tr>
+
+                <th className="p-4 text-left">
+                  Foto
+                </th>
+
+                <th className="p-4 text-left">
+                  Nombre
+                </th>
+
+                <th className="p-4 text-left">
+                  País
+                </th>
+
+                <th className="p-4 text-left">
+                  Estado
+                </th>
+
+                <th className="p-4 text-center">
+                  Acciones
+                </th>
+
+              </tr>
+
+            </thead>
+
+            <tbody>
+
+              {locutores?.map((locutor) => (
+
+                <tr
+                  key={locutor.id}
+                  className="border-t border-neutral-800 hover:bg-neutral-900"
+                >
+
+                  <td className="p-4">
+
+                    {locutor.foto ? (
+
+                      <img
+                        src={locutor.foto}
+                        alt={locutor.nombre}
+                        className="h-14 w-14 rounded-full object-cover"
+                      />
+
+                    ) : (
+
+                      <div className="h-14 w-14 rounded-full bg-neutral-800"></div>
+
+                    )}
+
+                  </td>
+
+                  <td className="p-4 font-bold text-yellow-400">
+                    {locutor.nombre}
+                  </td>
+
+                  <td className="p-4">
+                    {locutor.pais}
+                  </td>
+
+                  <td className="p-4">
+                    {locutor.activo ? "🟢 Activo" : "🔴 Inactivo"}
+                  </td>
+
+                  <td className="p-4">
+
+                    <div className="flex justify-center gap-3">
+
+                      <Link
+                        href={`/admin/locutores/editar/${locutor.id}`}
+                        className="rounded-lg bg-blue-600 px-4 py-2 hover:bg-blue-700"
+                      >
+                        ✏ Editar
+                      </Link>
+
+                      <DeleteLocutorButton
+                        id={locutor.id}
+                      />
+
+                    </div>
+
+                  </td>
+
+                </tr>
+
+              ))}
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+        <div className="mt-10">
+
+          <Link
+            href="/admin"
+            className="text-yellow-400 hover:underline"
+          >
+            ← Volver al panel
+          </Link>
+
+        </div>
+
+      </div>
 
     </main>
   );

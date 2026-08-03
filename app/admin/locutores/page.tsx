@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { supabase } from "@/lib/supabase";
+import DeleteLocutorButton from "@/components/admin/DeleteLocutorButton";
 
 export default async function AdminLocutoresPage() {
   const { data: locutores, error } = await supabase
@@ -114,21 +115,27 @@ export default async function AdminLocutoresPage() {
                   </td>
 
                   <td className="p-4">
-
                     {locutor.activo
                       ? "🟢 Activo"
                       : "🔴 Inactivo"}
-
                   </td>
 
-                  <td className="p-4 text-center">
+                  <td className="p-4">
 
-                    <Link
-                      href={`/admin/locutores/editar/${locutor.id}`}
-                      className="rounded-lg bg-blue-600 px-4 py-2 hover:bg-blue-700"
-                    >
-                      ✏ Editar
-                    </Link>
+                    <div className="flex justify-center gap-3">
+
+                      <Link
+                        href={`/admin/locutores/editar/${locutor.id}`}
+                        className="rounded-lg bg-blue-600 px-4 py-2 hover:bg-blue-700"
+                      >
+                        ✏ Editar
+                      </Link>
+
+                      <DeleteLocutorButton
+                        id={locutor.id}
+                      />
+
+                    </div>
 
                   </td>
 
