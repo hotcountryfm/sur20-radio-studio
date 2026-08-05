@@ -6,7 +6,18 @@ import { MapPin, ArrowRight } from "lucide-react";
 
 import AnimatedSection from "@/components/ui/AnimatedSection";
 import GlassCard from "@/components/ui/GlassCard";
-import { Locutor } from "@/data/locutores";
+
+interface Locutor {
+  id: number;
+  nombre: string;
+  slug: string;
+  foto: string | null;
+  ciudad: string | null;
+  pais: string | null;
+  bandera: string | null;
+  programa: string | null;
+  biografia: string | null;
+}
 
 interface Props {
   locutor: Locutor;
@@ -17,29 +28,26 @@ export default function LocutorCard({ locutor }: Props) {
     <AnimatedSection>
       <GlassCard className="group overflow-hidden transition-all duration-500 hover:-translate-y-3 hover:shadow-2xl hover:shadow-sky-500/20">
 
-        <Link href={locutor.urlPrograma}>
+        <Link href={`/locutores/${locutor.slug}`}>
 
           {/* FOTO */}
           <div className="relative h-[430px] overflow-hidden bg-gradient-to-b from-slate-900 to-black">
 
             <Image
-              src={locutor.imagen}
+             src={locutor.foto || "/default-locutor.png"}
               alt={locutor.nombre}
               fill
-              priority={false}
               sizes="(max-width:768px)100vw,(max-width:1200px)50vw,33vw"
               className="object-contain p-3 transition-transform duration-700 group-hover:scale-105"
             />
 
-            {/* Degradado */}
             <div className="absolute inset-0 bg-gradient-to-t from-black via-black/10 to-transparent" />
 
-            {/* País */}
-            <div className="absolute left-5 top-5 rounded-full bg-sky-500/90 px-4 py-2 text-xs font-bold uppercase tracking-widest text-slate-950 backdrop-blur">
-
-              {locutor.bandera} {locutor.ciudad}
-
-            </div>
+            {(locutor.bandera || locutor.ciudad) && (
+              <div className="absolute left-5 top-5 rounded-full bg-sky-500/90 px-4 py-2 text-xs font-bold uppercase tracking-widest text-slate-950 backdrop-blur">
+                {locutor.bandera} {locutor.ciudad}
+              </div>
+            )}
 
           </div>
 
@@ -57,30 +65,32 @@ export default function LocutorCard({ locutor }: Props) {
                 <MapPin className="h-4 w-4 text-sky-400" />
 
                 <span>
-                  {locutor.ciudad}, {locutor.pais}
+                  {locutor.ciudad}
+                  {locutor.ciudad && locutor.pais ? ", " : ""}
+                  {locutor.pais}
                 </span>
 
               </div>
 
             </div>
 
-            <div className="rounded-xl border border-sky-500/20 bg-sky-500/10 p-4">
+            {locutor.programa && (
+              <div className="rounded-xl border border-sky-500/20 bg-sky-500/10 p-4">
 
-              <p className="text-sm uppercase tracking-widest text-sky-300">
-                Programa
-              </p>
+                <p className="text-sm uppercase tracking-widest text-sky-300">
+                  Programa
+                </p>
 
-              <h3 className="mt-1 text-lg font-semibold text-white">
-                {locutor.programa}
-              </h3>
+                <h3 className="mt-1 text-lg font-semibold text-white">
+                  {locutor.programa}
+                </h3>
 
-            </div>
+              </div>
+            )}
 
             <p className="line-clamp-4 leading-7 text-slate-300">
-              {locutor.descripcion}
+              {locutor.biografia}
             </p>
-
-            {/* BOTÓN */}
 
             <div className="flex items-center justify-between rounded-xl bg-sky-500 px-5 py-4 font-semibold text-slate-950 transition-all duration-300 group-hover:bg-sky-400">
 
