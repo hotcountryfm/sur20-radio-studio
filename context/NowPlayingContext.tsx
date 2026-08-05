@@ -30,19 +30,26 @@ export function NowPlayingProvider({
   const [cover, setCover] = useState("/icons/icon-512.png");
 
   useEffect(() => {
+    let mounted = true;
+
     async function loadSong() {
       try {
         const res = await fetch("/api/now-playing", {
           cache: "no-store",
         });
 
+        if (!res.ok) return;
+
         const data = await res.json();
 
-        if (data.artist) setArtist(data.artist);
-        if (data.song) setSong(data.song);
-        if (data.cover) setCover(data.cover);
-      } catch (err) {
-        console.error(err);
+        if (!mounted) return;
+
+        setArtist(data.artist ?? "SUR20 RADIO");
+        setSong(data.song ?? "Tu compañía, tu voz");
+        setCover(data.cover ?? "/icons/icon-512.png");
+
+      } catch (error) {
+        console.warn("Now Playing no disponible:", error);
       }
     }
 
@@ -50,7 +57,10 @@ export function NowPlayingProvider({
 
     const interval = setInterval(loadSong, 10000);
 
-    return () => clearInterval(interval);
+    return () => {
+      mounted = false;
+      clearInterval(interval);
+    };
   }, []);
 
   return (
