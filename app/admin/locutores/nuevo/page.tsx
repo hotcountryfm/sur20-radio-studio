@@ -1,6 +1,7 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useRouter, useParams } from "next/navigation";
 import { supabase } from "@/lib/supabase";
 import { subirImagen } from "@/lib/storage";
 import LocutorForm from "../components/LocutorForm";
@@ -13,24 +14,54 @@ type FormData = {
   foto?: File | null;
 };
 
-export default function NuevoLocutorPage() {
+export default function EditarLocutorPage() {
   const router = useRouter();
+  const params = useParams();
 
-  function crearSlug(texto: string) {
-    return texto
-      .toLowerCase()
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .replace(/ñ/g, "n")
-      .replace(/[^a-z0-9]+/g, "-")
-      .replace(/^-|-$/g, "");
+  const id = params.id as string;
+
+  const [loading, setLoading] = useState(true);
+
+  const [locutor, setLocutor] = useState({
+    nombre: "",
+    pais: "",
+    ciudad: "",
+    biografia: "",
+    foto: "",
+  });
+
+  useEffect(() => {
+    cargarLocutor();
+  }, []);
+
+  async function cargarLocutor() {
+    const { data, error } = await supabase
+      .from("locutores")
+      .select("*")
+      .eq("id", id)
+      .single();
+
+    if (error) {
+      alert(error.message);
+      return;
+    }
+
+    setLocutor({
+      nombre: data.nombre ?? "",
+      pais: data.pais ?? "",
+      ciudad: data.ciudad ?? "",
+      biografia: data.biografia ?? "",
+      foto: data.foto ?? "",
+    });
+
+    setLoading(false);
   }
 
-  async function guardar(data: FormData) {
+  async function actualizar(data: FormData) {
     try {
-      let fotoUrl: string | null = null;
+      let fotoUrl = locutor.foto;
 
-      // Subir imagen si existe
+      // Si el usuario seleccionó una nueva foto
       if (data.foto) {
         fotoUrl = await subirImagen(
           "locutores",
@@ -38,23 +69,16 @@ export default function NuevoLocutorPage() {
         );
       }
 
-      const slug = crearSlug(data.nombre);
-
       const { error } = await supabase
         .from("locutores")
-        .insert([
-          {
-            nombre: data.nombre,
-            slug,
-            pais: data.pais,
-            ciudad: data.ciudad,
-            biografia: data.biografia,
-            foto: fotoUrl,
-            activo: true,
-            destacado: false,
-            orden: 0,
-          },
-        ]);
+        .update({
+          nombre: data.nombre,
+          pais: data.pais,
+          ciudad: data.ciudad,
+          biografia: data.biografia,
+          foto: fotoUrl,
+        })
+        .eq("id", id);
 
       if (error) {
         alert(error.message);
@@ -66,8 +90,16 @@ export default function NuevoLocutorPage() {
 
     } catch (error) {
       console.error(error);
-      alert("Error subiendo la imagen.");
+      alert("Error actualizando la fotografía.");
     }
+  }
+
+  if (loading) {
+    return (
+      <main className="min-h-screen bg-black text-white flex items-center justify-center">
+        Cargando...
+      </main>
+    );
   }
 
   return (
@@ -75,10 +107,13 @@ export default function NuevoLocutorPage() {
       <div className="mx-auto max-w-3xl px-8 py-20">
 
         <h1 className="mb-10 text-5xl font-black text-yellow-400">
-          Nuevo locutor
+          Editar locutor
         </h1>
 
-        <LocutorForm onSubmit={guardar} />
+        <LocutorForm
+          initialData={locutor}
+          onSubmit={actualizar}
+        />
 
       </div>
     </main>

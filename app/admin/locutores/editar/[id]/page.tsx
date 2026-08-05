@@ -3,7 +3,16 @@
 import { useEffect, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { supabase } from "@/lib/supabase";
+import { subirImagen } from "@/lib/storage";
 import LocutorForm from "../../components/LocutorForm";
+
+type FormData = {
+  nombre: string;
+  pais: string;
+  ciudad: string;
+  biografia: string;
+  foto?: File | null;
+};
 
 export default function EditarLocutorPage() {
   const router = useRouter();
@@ -18,6 +27,7 @@ export default function EditarLocutorPage() {
     pais: "",
     ciudad: "",
     biografia: "",
+    foto: "",
   });
 
   useEffect(() => {
@@ -41,29 +51,47 @@ export default function EditarLocutorPage() {
       pais: data.pais ?? "",
       ciudad: data.ciudad ?? "",
       biografia: data.biografia ?? "",
+      foto: data.foto ?? "",
     });
 
     setLoading(false);
   }
 
-  async function actualizar(data: {
-    nombre: string;
-    pais: string;
-    ciudad: string;
-    biografia: string;
-  }) {
-    const { error } = await supabase
-      .from("locutores")
-      .update(data)
-      .eq("id", id);
+  async function actualizar(data: FormData) {
+    try {
+      let fotoUrl = locutor.foto;
 
-    if (error) {
-      alert(error.message);
-      return;
+      // Si el usuario selecciona una nueva foto
+      if (data.foto) {
+        fotoUrl = await subirImagen(
+          "locutores",
+          data.foto
+        );
+      }
+
+      const { error } = await supabase
+        .from("locutores")
+        .update({
+          nombre: data.nombre,
+          pais: data.pais,
+          ciudad: data.ciudad,
+          biografia: data.biografia,
+          foto: fotoUrl,
+        })
+        .eq("id", id);
+
+      if (error) {
+        alert(error.message);
+        return;
+      }
+
+      router.push("/admin/locutores");
+      router.refresh();
+
+    } catch (error) {
+      console.error(error);
+      alert("Error actualizando el locutor.");
     }
-
-    router.push("/admin/locutores");
-    router.refresh();
   }
 
   if (loading) {
