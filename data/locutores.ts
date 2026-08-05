@@ -20,7 +20,7 @@ export const locutores: Locutor[] = [
     programa: "The Disco Experience",
     descripcion:
       "Desde Londres comparte la mejor música y toda la pasión por la radio con los oyentes de SUR20 RADIO.",
-    imagen: "/locutores/GORGE.png",
+    imagen: "/locutores/george.png",
     urlPrograma: "/locutores/george",
   },
   {
@@ -32,7 +32,7 @@ export const locutores: Locutor[] = [
     programa: "Los Gigantes del Pasado",
     descripcion:
       "Un recorrido por los grandes éxitos de los años 80 y 90.",
-    imagen: "/locutores/logo JR nestor.jpg",
+    imagen: "/locutores/jr-nestor-luis.jpg",
     urlPrograma: "/locutores/jr-nestor-luis",
   },
   {
