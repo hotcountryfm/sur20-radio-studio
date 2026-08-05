@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import ImageUploader from "@/components/admin/ImageUploader";
 
 type Props = {
   initialData?: {
@@ -8,6 +9,7 @@ type Props = {
     pais?: string;
     ciudad?: string;
     biografia?: string;
+    foto?: string;
   };
 
   onSubmit: (data: {
@@ -15,6 +17,7 @@ type Props = {
     pais: string;
     ciudad: string;
     biografia: string;
+    foto?: File | null;
   }) => Promise<void>;
 };
 
@@ -28,6 +31,8 @@ export default function LocutorForm({
   const [biografia, setBiografia] = useState(
     initialData?.biografia ?? ""
   );
+
+  const [foto, setFoto] = useState<File | null>(null);
 
   const [loading, setLoading] = useState(false);
 
@@ -43,6 +48,7 @@ export default function LocutorForm({
       pais,
       ciudad,
       biografia,
+      foto,
     });
 
     setLoading(false);
@@ -89,6 +95,12 @@ export default function LocutorForm({
           className="w-full rounded-lg bg-neutral-900 p-4"
         />
       </div>
+
+      <ImageUploader
+        label="Fotografía"
+        value={initialData?.foto}
+        onChange={setFoto}
+      />
 
       <div>
         <label className="mb-2 block">

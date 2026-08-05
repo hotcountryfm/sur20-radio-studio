@@ -2,7 +2,16 @@
 
 import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabase";
+import { subirImagen } from "@/lib/storage";
 import LocutorForm from "../components/LocutorForm";
+
+type FormData = {
+  nombre: string;
+  pais: string;
+  ciudad: string;
+  biografia: string;
+  foto?: File | null;
+};
 
 export default function NuevoLocutorPage() {
   const router = useRouter();
@@ -17,33 +26,48 @@ export default function NuevoLocutorPage() {
       .replace(/^-|-$/g, "");
   }
 
-  async function guardar(data: {
-    nombre: string;
-    pais: string;
-    ciudad: string;
-    biografia: string;
-  }) {
-    const slug = crearSlug(data.nombre);
+  async function guardar(data: FormData) {
+    try {
+      let fotoUrl: string | null = null;
 
-    const { error } = await supabase
-      .from("locutores")
-      .insert([
-        {
-          ...data,
-          slug,
-          activo: true,
-          destacado: false,
-          orden: 0,
-        },
-      ]);
+      // Subir imagen si existe
+      if (data.foto) {
+        fotoUrl = await subirImagen(
+          "locutores",
+          data.foto
+        );
+      }
 
-    if (error) {
-      alert(error.message);
-      return;
+      const slug = crearSlug(data.nombre);
+
+      const { error } = await supabase
+        .from("locutores")
+        .insert([
+          {
+            nombre: data.nombre,
+            slug,
+            pais: data.pais,
+            ciudad: data.ciudad,
+            biografia: data.biografia,
+            foto: fotoUrl,
+            activo: true,
+            destacado: false,
+            orden: 0,
+          },
+        ]);
+
+      if (error) {
+        alert(error.message);
+        return;
+      }
+
+      router.push("/admin/locutores");
+      router.refresh();
+
+    } catch (error) {
+      console.error(error);
+      alert("Error subiendo la imagen.");
     }
-
-    router.push("/admin/locutores");
-    router.refresh();
   }
 
   return (
